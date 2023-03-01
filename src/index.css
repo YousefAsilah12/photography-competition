@@ -1,0 +1,12 @@
+:root {
+  --primary-color: #BF0F61;
+  --secoundary-color: #FCFCF9;
+  --dark-color: #0A0504;
+  --fancy-color: #F22E2E;
+  --line-height: 136%;
+}
+
+html,
+body {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
