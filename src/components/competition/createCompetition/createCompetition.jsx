@@ -34,8 +34,6 @@ export const CreateCompetition = () => {
     //v4 function using uuid library to generate unique id
     const imageLocattion = imageFile.name + v4()
     const imageRef = ref(storage, collectionName + imageLocattion)
-    console.log(imageLocattion);
-    console.log("imageLocation", imageLocattion);
     try {
       const response = await uploadBytes(imageRef, imageFile)
       console.log("response", response);
@@ -86,6 +84,7 @@ export const CreateCompetition = () => {
 
       try {
         await addDocument(competitionObj);
+        console.log("postresult",result);
         setMessage({ error: false, message: 'Competition created successfully' });
         setTimeout(() => {
           navigate('/competitions-list');

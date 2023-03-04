@@ -1,96 +1,74 @@
-// import { db,app } from "../firebase/firebaseConfig";
-// import {
-//   collection,
-//   getDoc,
-//   getDocs,
-//   addDoc,
-//   updateDoc,
-//   deleteDoc,
-//   doc
-// } from "firebase/firestore";
-
-// const competitionRef = collection(db, "competition");
-// class competitionService {
-//   addCompetition(newCompetition) {
-//     return addDoc(competitionRef, newCompetition);
-//   }
-
-//   updateCompetition(id, updatedCompetition) {
-//     //check if id exist in database
-//     const competitionDoc = doc(db, "competition", id);
-
-//     //replace the value with the new competition value
-//     return updateDoc(competitionDoc, updatedCompetition);
-//   }
-
-//   deleteCompetition(id) {
-//     const competitionDoc = doc(db, "competition", id);
-//     return deleteDoc(competitionDoc);
-//   }
-
-//   getAllCompetitions(){
-//     return getDocs(competitionRef);
-//   }
-
-//   getCompetitionById(id){
-//     const competitionDoc = doc(db, "competition", id);
-//     return getDoc(competitionDoc);  
-//   }
-// }
-
-// export default new competitionService();
-
-
-
-import { useEffect, useState } from 'react';
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../firebase/firebaseConfig';
+import {
+  useEffect,
+  useState
+} from 'react';
+import {
+  collection,
+  getDocs,
+  getDoc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  query,
+  where
+} from 'firebase/firestore';
+import {
+  db
+} from '../firebase/firebaseConfig';
 
 export function useFirestore(collectionName) {
   const [data, setData] = useState([]);
+  const [dataById, setDataById] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const querySnapshot = await getDocs(collection(db, collectionName));
-        const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        setData(docs);
-      } catch (error) {
-        setError(error);
-      }
-      setIsLoading(false);
+  async function fetchData(collectionName) {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const querySnapshot = await getDocs(collection(db, collectionName));
+      const docs = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setData(docs);
+    } catch (error) {
+      setError(error);
     }
-
-    fetchData();
-  }, [collectionName]);
-
-  async function addDocument(document) {
+    setIsLoading(false);
+  }
+  async function addDocument(document, collectionName) {
     try {
       const docRef = await addDoc(collection(db, collectionName), document);
-      setData([...data, { id: docRef.id, ...document }]);
+      setData([...data, {
+        id: docRef.id,
+        ...document
+      }]);
     } catch (error) {
       setError(error);
     }
   }
 
-  async function updateDocument(id, updatedDocument) {
+  async function updateDocument(id, updatedDocument, collectionName) {
+    setIsLoading(true);
     try {
       const docRef = doc(db, collectionName, id);
       await updateDoc(docRef, updatedDocument);
-      const updatedDocs = data.map((doc) => (doc.id === id ? { id, ...updatedDocument } : doc));
+      const updatedDocs = data.map((doc) => (doc.id === id ? {
+        id,
+        ...updatedDocument
+      } : doc));
       setData(updatedDocs);
     } catch (error) {
       setError(error);
     }
+    setIsLoading(false);
+
   }
 
-  async function deleteDocument(id) {
+  async function deleteDocument(id, collectionName) {
     try {
-
       setIsLoading(true);
       const docRef = doc(db, collectionName, id);
       await deleteDoc(docRef);
@@ -102,5 +80,46 @@ export function useFirestore(collectionName) {
     }
   }
 
-  return { data, isLoading, error, addDocument, updateDocument, deleteDocument  };
+  async function getCompetitionById(id, collectionName) {
+    setIsLoading(true)
+    setError(null)
+    try {
+      const docRef = doc(db, collectionName, id);
+      const docSnapshot = await getDoc(docRef);
+      const competitionData = docSnapshot.data();
+      setDataById(competitionData);
+    } catch (error) {
+      setError(error);
+    }
+    setIsLoading(false)
+  }
+  async function deleteUnique(id, collectionName) {
+    try {
+      setIsLoading(true);
+      const querySnapshot = await getDocs(
+        query(collection(db, collectionName), where('id', '==', id))
+      );
+      const promises = querySnapshot.docs.map((doc) => deleteDoc(doc.ref));
+      await Promise.all(promises);
+      const filteredDocs = data.filter((doc) => doc.id !== id);
+      setData(filteredDocs);
+    } catch (error) {
+      setError(error);
+    }
+    setIsLoading(false);
+  }
+  
+  return {
+    data,
+    isLoading,
+    error,
+    dataById,
+    getCompetitionById,
+    addDocument,
+    updateDocument,
+    deleteDocument,
+    fetchData,
+    deleteUnique
+
+  };
 }

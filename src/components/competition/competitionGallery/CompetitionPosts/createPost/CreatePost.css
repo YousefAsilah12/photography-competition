@@ -1,0 +1,14 @@
+.create-post-style {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: start;;
+}
+.create-post-formGroup{
+  display: flex;;
+  justify-content: center;
+  flex-direction: column;
+
+}

@@ -1,0 +1,55 @@
+.post-show-container {
+  width: fit-content;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;;
+  
+}
+.post-show-container  .post-img{
+width: 100%;
+}
+
+.post-show-container .post-header {
+  display: flex;
+  flex-direction: column;;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.post-footer{
+  width: 100%;
+}
+.post-show-container .post-price {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;;
+  align-self: center;
+  justify-content: center;
+
+}
+
+.post-show-container .buy-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.post-show-container .buttons-line {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}

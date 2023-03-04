@@ -20,9 +20,8 @@ export function ImageComponent(props) {
         return <p>No image name provided.</p>;
       }
       
-      const imageRef = ref(storage, `competitionImages/${imageName}`);
+      const imageRef = ref(storage, `${props.location}/${imageName}`);
       const url = await getDownloadURL(imageRef);
-      console.log(url);
       setImageUrl(url);
     } catch (error) {
       setError(error);

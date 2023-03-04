@@ -1,0 +1,18 @@
+.winner-posts-wrapper{
+  display: flex;;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.winner-post{
+  display: flex;;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:2rem;
+}
+
+.winner-posts-wrapper .winner-post{
+  width: 100%;
+}

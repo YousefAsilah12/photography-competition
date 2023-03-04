@@ -1,11 +1,11 @@
 import { useFirestore } from "../../../services/competition";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CompetitionDisplay.css";
 import { useNavigate } from 'react-router-dom';
 import { extractDateTime } from "../../../services/date";
 import { ImageComponent } from "../imageComponent/Imgage";
 export const CompetitionsDisplay = (props) => {
-  const { data: competition, isLoading, error, updateDocument, deleteDocument } = useFirestore("competition");
+  const { data: competition, isLoading, error, updateDocument, deleteDocument, fetchData } = useFirestore();
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
@@ -17,9 +17,10 @@ export const CompetitionsDisplay = (props) => {
     finishDate: "",
     image: ""
   });
+  useEffect(() => {
+    fetchData("competition");
+  }, [])
 
-
-  console.log(competition);
   const handleEdit = (competition) => {
     setIsEditing(true);
     setSelectedCompetition(competition);
@@ -29,7 +30,6 @@ export const CompetitionsDisplay = (props) => {
     setIsEditing(false);
     setSelectedCompetition(null);
     // TODO: save changes to the database
-    console.log("edited", selectedCompetition);
     try {
       await updateDocument(selectedCompetition.id, selectedCompetition);
       console.log("updated");
@@ -39,7 +39,7 @@ export const CompetitionsDisplay = (props) => {
   };
   const handledelete = async (id) => {
     try {
-      await deleteDocument(id)
+      await deleteDocument(id,"competition")
     } catch (e) {
       alert(e.message);
     }
@@ -56,10 +56,10 @@ export const CompetitionsDisplay = (props) => {
 
 
   function dateToString(date) {
-    const time=  extractDateTime(date)
+    const time = extractDateTime(date)
     return time.date
   }
-  
+
   return (
     <div className="competitions-display">
       <button onClick={() => { navigate("/create-competition") }}>add competition</button>
@@ -121,17 +121,17 @@ export const CompetitionsDisplay = (props) => {
             </>
           ) : (
             <>
-              <ImageComponent imageName={comp.imageUrl}></ImageComponent>
+              <ImageComponent location="competitionImages" imageName={comp.imageUrl}></ImageComponent>
               <h2>{comp.title}</h2>
               <p>{comp.description}</p>
               <div className="dates">
                 <p>Start Date: {dateToString(comp.startDate)}</p>
-                <p>Finish Date: {dateToString( comp.finishDate)}</p>
+                <p>Finish Date: {dateToString(comp.finishDate)}</p>
               </div>
               <div className="compBottombuttons">
                 <button className="editButton" onClick={() => handleEdit(comp)}>Edit</button>
                 <button className="deleteButton" onClick={() => handledelete(comp.id)}>delete</button>
-                <button>join</button>
+                <button onClick={() => { navigate(`/competition-gallery/${comp.id}`) }} >join</button>
               </div>
             </>
           )}
