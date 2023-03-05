@@ -83,7 +83,7 @@ export const CreateCompetition = () => {
       };
 
       try {
-        await addDocument(competitionObj);
+        await addDocument(competitionObj,"competition");
         console.log("postresult",result);
         setMessage({ error: false, message: 'Competition created successfully' });
         setTimeout(() => {

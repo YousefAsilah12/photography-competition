@@ -22,8 +22,24 @@ export function CreatePost({ competitionId, userId }) {
   const [imageFile, setImageFile] = useState("");
   const [postMessage, setPostMessage] = useState("");
   const imageUrlRef = useRef('');
-  const { addDocument, isLoading, error } = useFirestore();
+  const navigate = useNavigate();
+  const { data: users, addDocument, isLoading, error, fetchData } = useFirestore();
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    fetchData();
+  }, [])
 
+  useEffect(() => {
+    if (users.length > 0) {
+      const signUser = JSON.parse(localStorage.getItem("user"));
+      const getUser = users.find(user => user.email === signUser.email);
+      console.log("usre from local storage", getUser);
+      if (!getUser) {
+        navigate("/login")
+      }
+      setUser(getUser);
+    }
+  }, [users])
 
 
   async function handleImageAsFile() {
@@ -53,13 +69,13 @@ export function CreatePost({ competitionId, userId }) {
         title,
         description,
         imageUrl: imageUrlRef.current,
-        userId,
+        userId: user.id,
         competitionId,
         votes: 0,
         comments: []
       }
       try {
-        const result = await addDocument(postObj,"posts")
+        const result = await addDocument(postObj, "posts")
         setPostMessage('post created successfully');
         setTimeout(() => {
           setDescription("")

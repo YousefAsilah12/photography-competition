@@ -11,24 +11,26 @@ import { ImageComponent } from "../../imageComponent/Imgage";
 
 
 import { useNavigate } from "react-router";
-export function CompetitionPosts({ post, competition, id }) {
-  const { updateDocument, isLoading } = useFirestore()
+export function CompetitionPosts({ post, competition, id, voted, updateVoted }) {
+  const { updateDocument, isLoading, dataById: user, loadAll, getCompetitionById } = useFirestore()
   const [message, setMessage] = useState(null)
   const navigate = useNavigate()
-
+  console.log("voted", voted);
+  useEffect(() => {
+    getCompetitionById(post.userId, "users");
+  }, [])
 
   async function voteHandle() {
     //after that we need to check user that voted only 1 time 
-
+    if (voted) return
     post.votes = post.votes + 1;
     try {
       await updateDocument(post.id, post, "posts");
+      updateVoted()
     } catch (e) {
       console.log(e.message);
     }
   }
-
-
   return (
     <div>
       <div onClick={() => { navigate(`/post-details/${post.id}`) }}>
@@ -42,16 +44,16 @@ export function CompetitionPosts({ post, competition, id }) {
       </div>
       <div className="post-content">
         <div className="user">
-          <h1>userImg</h1>
-          <h1>userName</h1>
+          <img src={user.avatar} alt="" />
+          <h1>{user.userName}</h1>
         </div>
         {isLoading ? <h4>loading..</h4> : <div>
           <h2 className="details">
-            User ID: {post.userId} | Votes: {post.votes}
+            <small>votes:</small>  {post.votes}
           </h2>
         </div>}
         <div>
-          <button onClick={voteHandle}>Vote</button>
+          <button className="vote-Button" disabled={voted} title={voted ? "alreadyVoted" : "vote"} onClick={voteHandle}>Vote</button>
         </div>
       </div>
     </div>

@@ -20,6 +20,8 @@ import {
 export function useFirestore(collectionName) {
   const [data, setData] = useState([]);
   const [dataById, setDataById] = useState([]);
+  const [addedData, setAddedData] = useState("");
+  const [userData, setUserData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -41,10 +43,10 @@ export function useFirestore(collectionName) {
   async function addDocument(document, collectionName) {
     try {
       const docRef = await addDoc(collection(db, collectionName), document);
-      setData([...data, {
+      setAddedData(...data, {
         id: docRef.id,
         ...document
-      }]);
+      });
     } catch (error) {
       setError(error);
     }
@@ -108,7 +110,28 @@ export function useFirestore(collectionName) {
     }
     setIsLoading(false);
   }
+
+  async function getUserByEmail(email) {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const q = query(collection(db, "users"), where("email", "==", email));
+      const querySnapshot = await getDocs(q);
+      const docs = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setUserData(docs);
+    } catch (error) {
+      setError(error);
+    }
+    setIsLoading(false);
+  }
   
+
+  async function formatData() {
+    setData([])
+  }
   return {
     data,
     isLoading,
@@ -119,7 +142,9 @@ export function useFirestore(collectionName) {
     updateDocument,
     deleteDocument,
     fetchData,
-    deleteUnique
-
+    deleteUnique,
+    getUserByEmail,
+    userData,
+    addedData
   };
 }

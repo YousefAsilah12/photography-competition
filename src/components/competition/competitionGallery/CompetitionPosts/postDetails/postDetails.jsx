@@ -11,7 +11,7 @@ import { ImageComponent } from "../../../imageComponent/Imgage";
 
 export const PostDetails = () => {
   const { id } = useParams();
-  const { getCompetitionById, dataById: post, isLoading, error, updateDocument } = useFirestore();
+  const { getCompetitionById, dataById: post, isLoading, error, updateDocument, getUserByEmail, userData: loggedInUser } = useFirestore();
   const [comment, setComment] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editedPost, setEditedPost] = useState({ ...post });
@@ -19,6 +19,8 @@ export const PostDetails = () => {
   useEffect(() => {
     debugger
     getPostById()
+    const email = JSON.parse(localStorage.getItem("user")).email;
+    getUserByEmail(email)
   }, [id])
   async function getPostById() {
     try {
@@ -42,7 +44,8 @@ export const PostDetails = () => {
 
     try {
 
-      post.comments.push(comment);
+      post.comments.push({ comment: comment, userName: loggedInUser[0].userName, avatar: loggedInUser[0].avatar });
+      console.log("postbeforeUpdateComment", post);
       await updateDocument(id, post, "posts")
     } catch (error) {
       alert(error.message)
@@ -124,7 +127,11 @@ export const PostDetails = () => {
               {post.comments &&
                 post.comments.map((comment, index) => (
                   <div className="comment" key={index}>
-                    <p>{comment}</p>
+                    <div className="user-info">
+                      <img src={comment.avatar} alt={comment.userName} />
+                      <p>{comment.userName}</p>
+                    </div>
+                    <p>{comment.comment}</p>
                   </div>
                 ))}
             </div>

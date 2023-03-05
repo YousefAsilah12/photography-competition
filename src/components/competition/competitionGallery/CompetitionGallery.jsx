@@ -8,7 +8,7 @@ import { CreatePost } from './CompetitionPosts/createPost/CreatePost';
 import { getCompetitionPosts } from '../../../services/post';
 export function CompetitionGallery() {
   const { id } = useParams();
-  const { data: posts, dataById:competition, isLoading, error,updateDocument, getCompetitionById, fetchData } = useFirestore();
+  const { data: posts, dataById: competition, isLoading, error, updateDocument, getCompetitionById, fetchData, getUserByEmail, userData: loggedInData } = useFirestore();
 
   const [addPost, setAddPost] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -19,11 +19,21 @@ export function CompetitionGallery() {
   }, [id]);
   useEffect(() => {
     fetchData("posts");
+    getUserLoggedIn()
   }, [])
   useEffect(() => {
     setFilteredPosts(getCompetitionPosts(posts, id))
   }, [posts]);
 
+  useEffect(() => {
+    console.log("logged in data ",loggedInData);
+  }, [loggedInData])
+
+  async function getUserLoggedIn() {
+    debugger
+    const userLocalstorage = JSON.parse(localStorage.getItem('user'))
+    await getUserByEmail(userLocalstorage.email);
+  }
 
   if (addPost === true) {
     return <div className='add-post'>
@@ -35,7 +45,7 @@ export function CompetitionGallery() {
 
   async function fetchCompetition() {
     try {
-      await getCompetitionById(id,"competition");
+      await getCompetitionById(id, "competition");
     } catch (error) {
       console.log(error);
     }
@@ -48,21 +58,29 @@ export function CompetitionGallery() {
   }
 
 
+  async function handleVoted() {
+    debugger
+    loggedInData[0].voted = true;
+    await updateDocument(loggedInData[0].id, loggedInData[0], "users");
 
+  }
   return (
-    <div>
-      {competition ? <div>
-        <CountDown competitionId={id} finishDate={competition.finishDate} competition={competition} posts={filteredPosts}/>
-      </div> : null}
-      <div className='addPost-button'>
-        <button onClick={() => { setAddPost(true) }}>Add Post</button>
+    loggedInData ?
+      <div>
+        {competition ? <div>
+          <CountDown competitionId={id} finishDate={competition.finishDate} competition={competition} posts={filteredPosts} />
+        </div> : null}
+        <div className='addPost-button'>
+          <button onClick={() => { setAddPost(true) }}>Add Post</button>
+        </div>
+        <div className='posts-wrappper'>
+          {loggedInData ? filteredPosts.map((post) => {
+            return <CompetitionPosts voted={loggedInData[0].voted} key={post.id} post={post} competition={competition} updateVoted={handleVoted} />
+          }
+          ) : null}
+        </div>
       </div>
-      <div className='posts-wrappper'>
-        {filteredPosts.map((post) => {
-          return <CompetitionPosts key={post.id} post={post}  competition={competition} />
-        }
-        )}
-      </div>
-    </div>
+      : null
+
   );
 }
