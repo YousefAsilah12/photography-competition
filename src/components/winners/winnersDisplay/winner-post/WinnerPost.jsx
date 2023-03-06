@@ -6,13 +6,31 @@ import { ImageComponent } from "../../../competition/imageComponent/Imgage";
 
 import "./Winner-post.css"
 import { useFirestore } from "../../../../services/competition";
-export function WinnerPost({ post,onDelete }) {
-  const { isLoading, error, deleteDocument,deleteUnique } = useFirestore()
+import { useNavigate } from "react-router";
+
+export function WinnerPost({ post, onDelete,onBuyReload }) {
+  const { isLoading, error, deleteDocument, deleteUnique, getUserByEmail, userData: user,updateDocument } = useFirestore()
   console.log("post form oo", post);
   const [price, setPrice] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const userLocalstorage = JSON.parse(localStorage.getItem("user"));
+    if (!userLocalstorage) {
+      const confirm = window.confirm("You must be logged in to buy an image");
+      if (confirm) {
+        navigate("/login");
+      }
+      else {
+        window.close();
+      }
+    }
+    getUserByEmail(userLocalstorage.email)
+  }, [])
+
+
   async function handleDelete() {
     try {
-      console.log("currpost",post);
+      console.log("currpost", post);
 
       await deleteUnique(post.id, "winners")
       onDelete()
@@ -21,6 +39,20 @@ export function WinnerPost({ post,onDelete }) {
     }
   }
   if (isLoading) return <h1>loading....</h1>;
+
+  async function handleBuyNow() {
+    console.log("userBuyNow", user);
+    const u = user[0]
+    try {
+      u.buyedImages.push(post.imageUrl)
+       updateDocument(u.id,u,"users")
+       deleteUnique(post.id, "winners")
+      alert("image moved to you profile page")
+      onBuyReload()
+    } catch (error) {
+      alert(error.message)
+    }
+  }
   return (
     <div className="post-show-container">
 
@@ -34,7 +66,7 @@ export function WinnerPost({ post,onDelete }) {
       <div className="post-footer">
         <div className="post-price">Price: {post.votes * 20}$</div>
         <div className="buttons-line">
-          <button className="buy-btn">Buy Now</button>
+          <button onClick={handleBuyNow} className="buy-btn">Buy Now</button>
           <button onClick={handleDelete} style={{ backgroundColor: "red" }}>delete</button>
         </div>
       </div>

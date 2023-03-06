@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFirestore } from '../../../services/competition';
 import { useEffect, useState } from 'react';
 import { CompetitionPosts } from './CompetitionPosts/CompetitionPosts';
@@ -9,7 +9,7 @@ import { getCompetitionPosts } from '../../../services/post';
 export function CompetitionGallery() {
   const { id } = useParams();
   const { data: posts, dataById: competition, isLoading, error, updateDocument, getCompetitionById, fetchData, getUserByEmail, userData: loggedInData } = useFirestore();
-
+  const navigate = useNavigate();
   const [addPost, setAddPost] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState([]);
 
@@ -26,7 +26,7 @@ export function CompetitionGallery() {
   }, [posts]);
 
   useEffect(() => {
-    console.log("logged in data ",loggedInData);
+    console.log("logged in data ", loggedInData);
   }, [loggedInData])
 
   async function getUserLoggedIn() {

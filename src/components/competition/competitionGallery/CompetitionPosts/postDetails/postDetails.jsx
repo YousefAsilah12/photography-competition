@@ -3,7 +3,7 @@
 
 
 
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import "./postDetails.css"
 import { useEffect, useState } from "react";
 import { useFirestore } from "../../../../../services/competition";
@@ -11,10 +11,11 @@ import { ImageComponent } from "../../../imageComponent/Imgage";
 
 export const PostDetails = () => {
   const { id } = useParams();
-  const { getCompetitionById, dataById: post, isLoading, error, updateDocument, getUserByEmail, userData: loggedInUser } = useFirestore();
+  const { getCompetitionById, dataById: post, isLoading, error, updateDocument, getUserByEmail, deleteDocument, userData: loggedInUser } = useFirestore();
   const [comment, setComment] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editedPost, setEditedPost] = useState({ ...post });
+  const navigate = useNavigate();
 
   useEffect(() => {
     debugger
@@ -75,7 +76,15 @@ export const PostDetails = () => {
       [name]: value,
     }));
   };
-
+  async function handleDelte() {
+    try {
+      console.log("id to delete", id);
+      await deleteDocument(id, "posts");
+      navigate(-1);
+    } catch (e) {
+      alert(e.message);
+    }
+  }
   return (
     <>
       <div className="post-details-container">
@@ -150,6 +159,7 @@ export const PostDetails = () => {
               <button type="button" onClick={handleEdit}>
                 Edit Post
               </button>
+              <button style={{ background: "red" }} onClick={() => { handleDelte(post.id) }} type="delete">Delete Post</button>
             </div>
           )}
           <form className="form-addComment" onSubmit={handleCommentSubmit}>

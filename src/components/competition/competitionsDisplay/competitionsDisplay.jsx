@@ -39,7 +39,7 @@ export const CompetitionsDisplay = (props) => {
   };
   const handledelete = async (id) => {
     try {
-      await deleteDocument(id,"competition")
+      await deleteDocument(id, "competition")
     } catch (e) {
       alert(e.message);
     }
@@ -59,7 +59,23 @@ export const CompetitionsDisplay = (props) => {
     const time = extractDateTime(date)
     return time.date
   }
+  function handleJoin(id) {
+    const userLocalstorage = JSON.parse(localStorage.getItem("user"));
+    if (!userLocalstorage) {
+      const confirm = window.confirm("You must be logged in to join a competition");
+      if (confirm) {
+        navigate("/login");
+        return
+      }
+      else {
+        window.close();
+        return 
+      }
+    }
 
+    navigate(`/competition-gallery/${id}`)
+
+  }
   return (
     <div className="competitions-display">
       <button onClick={() => { navigate("/create-competition") }}>add competition</button>
@@ -131,7 +147,7 @@ export const CompetitionsDisplay = (props) => {
               <div className="compBottombuttons">
                 <button className="editButton" onClick={() => handleEdit(comp)}>Edit</button>
                 <button className="deleteButton" onClick={() => handledelete(comp.id)}>delete</button>
-                <button onClick={() => { navigate(`/competition-gallery/${comp.id}`) }} >join</button>
+                <button onClick={() => { handleJoin(comp.id) }}>join</button>
               </div>
             </>
           )}

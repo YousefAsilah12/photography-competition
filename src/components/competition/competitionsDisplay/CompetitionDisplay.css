@@ -3,7 +3,7 @@
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;;
+  align-items: center;
   gap: 2rem;
 }
 
@@ -17,9 +17,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
   height: 40rem;
   gap: 1rem;
+  width: 50%;
+
 }
 
 .competition-card img {
@@ -27,6 +28,7 @@
   height: 100%;
   margin: 0 auto;
   width: 100%;
+  
 }
 
 .competition-card h2 {
@@ -43,7 +45,7 @@
 
 .dates {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   display: flex;
   flex-direction: column;
   padding:0;
@@ -86,7 +88,7 @@ button:hover {
 .compBottombuttons{
   width: 100%;
   display: flex;;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .editButton{
   background-color: yellow !important;;

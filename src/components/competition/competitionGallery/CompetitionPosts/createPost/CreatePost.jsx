@@ -24,26 +24,15 @@ export function CreatePost({ competitionId, userId }) {
   const imageUrlRef = useRef('');
   const navigate = useNavigate();
   const { data: users, addDocument, isLoading, error, fetchData } = useFirestore();
-  const [user, setUser] = useState(null);
+  const { userData: user, getUserByEmail } = useFirestore();
   useEffect(() => {
     fetchData();
+    getUserByEmail(JSON.parse(localStorage.getItem("user")).email)
   }, [])
-
-  useEffect(() => {
-    if (users.length > 0) {
-      const signUser = JSON.parse(localStorage.getItem("user"));
-      const getUser = users.find(user => user.email === signUser.email);
-      console.log("usre from local storage", getUser);
-      if (!getUser) {
-        navigate("/login")
-      }
-      setUser(getUser);
-    }
-  }, [users])
-
 
   async function handleImageAsFile() {
     debugger
+
     setPostMessage('loading ....');
 
     const collectionName = "postsImage/"
@@ -63,13 +52,18 @@ export function CreatePost({ competitionId, userId }) {
 
   async function submiteForm(event) {
     event.preventDefault();
+    debugger
+    if (!user) {
+      alert("to have to login first")
+      return
+    }
     const addedImg = await handleImageAsFile()
     if (addedImg == true) {
       const postObj = {
         title,
         description,
         imageUrl: imageUrlRef.current,
-        userId: user.id,
+        userId: user[0].id,
         competitionId,
         votes: 0,
         comments: []
@@ -77,13 +71,12 @@ export function CreatePost({ competitionId, userId }) {
       try {
         const result = await addDocument(postObj, "posts")
         setPostMessage('post created successfully');
-        setTimeout(() => {
-          setDescription("")
-          setImageFile("")
-          setTitle("")
-          imageUrlRef.current = ""
-          setPostMessage("")
-        }, 2000);
+        navigate(`/competition-gallery/${competitionId}`)
+        setDescription("")
+        setImageFile("")
+        setTitle("")
+        imageUrlRef.current = ""
+        setPostMessage("")
       } catch (error) {
         setPostMessage(error.message)
       }
