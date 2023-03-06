@@ -41,7 +41,7 @@ export function CountDown({ finishDate, competition, competitionId, posts }) {
   }
 
   async function checkForWinner() {
-    debugger
+    
     let max = posts[0]
     posts.forEach((item, index) => {
       if (item.votes > max.votes) {

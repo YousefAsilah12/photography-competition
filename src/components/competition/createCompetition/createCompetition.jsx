@@ -26,7 +26,7 @@ export const CreateCompetition = () => {
 
 
   async function handleImageAsFile() {
-    debugger
+    
     setMessage({ error: false, message: 'loading ....' });
 
     const collectionName = "competitionImages/"

@@ -30,7 +30,7 @@ export function CompetitionGallery() {
   }, [loggedInData])
 
   async function getUserLoggedIn() {
-    debugger
+    
     const userLocalstorage = JSON.parse(localStorage.getItem('user'))
     await getUserByEmail(userLocalstorage.email);
   }
@@ -59,7 +59,7 @@ export function CompetitionGallery() {
 
 
   async function handleVoted() {
-    debugger
+    
     loggedInData[0].voted = true;
     await updateDocument(loggedInData[0].id, loggedInData[0], "users");
 

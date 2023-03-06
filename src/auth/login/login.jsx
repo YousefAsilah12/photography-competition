@@ -28,7 +28,7 @@ export const Login = () => {
 
   function checkIfLoggedIn() {
     const user = JSON.parse(localStorage.getItem("user"))
-    debugger
+    
     console.log(user);
     if (!user) {
       navigate("/login")

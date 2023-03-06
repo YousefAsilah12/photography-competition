@@ -18,7 +18,7 @@ export const PostDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    debugger
+    
     getPostById()
     const email = JSON.parse(localStorage.getItem("user")).email;
     getUserByEmail(email)
@@ -40,7 +40,7 @@ export const PostDetails = () => {
 
   async function handleCommentSubmit(event) {
     event.preventDefault();
-    debugger
+    
     if (!post.comments) post.comments = [];
 
     try {

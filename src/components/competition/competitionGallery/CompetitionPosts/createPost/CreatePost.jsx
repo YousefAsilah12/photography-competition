@@ -31,7 +31,7 @@ export function CreatePost({ competitionId, userId }) {
   }, [])
 
   async function handleImageAsFile() {
-    debugger
+    
 
     setPostMessage('loading ....');
 
@@ -52,7 +52,7 @@ export function CreatePost({ competitionId, userId }) {
 
   async function submiteForm(event) {
     event.preventDefault();
-    debugger
+    
     if (!user) {
       alert("to have to login first")
       return

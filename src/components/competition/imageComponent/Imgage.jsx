@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import fileDownload from 'react-file-download';
 
 const storage = getStorage();
 
@@ -8,9 +9,9 @@ export function ImageComponent(props) {
   const [imageUrl, setImageUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const [canDownload, setCanDownload] = useState(false);
   async function fetchImage() {
-    debugger
+    
     setIsLoading(true);
     setError(null);
 
@@ -19,7 +20,7 @@ export function ImageComponent(props) {
       if (!imageName) {
         return <p>No image name provided.</p>;
       }
-      
+
       const imageRef = ref(storage, `${props.location}/${imageName}`);
       const url = await getDownloadURL(imageRef);
       setImageUrl(url);
@@ -31,7 +32,20 @@ export function ImageComponent(props) {
 
   useEffect(() => {
     fetchImage();
+    if (props.canDownload) {
+      setCanDownload(props.canDownload)
+    }
   }, []);
+
+  const handleImageDownload = (imageUrl) => {
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = 'image.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
 
   if (isLoading) {
     return <p>Loading image...</p>;
@@ -45,5 +59,8 @@ export function ImageComponent(props) {
     return null;
   }
 
-  return <img src={imageUrl} alt="Uploaded image" />;
+  return <>
+    <img src={imageUrl} alt="Uploaded image" />
+    {canDownload ? <div style={{display:'block'}}> <button onClick={() => handleImageDownload(imageUrl)}>Download</button> </div>: null}
+  </>
 }

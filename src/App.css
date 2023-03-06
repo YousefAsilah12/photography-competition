@@ -1,0 +1,9 @@
+.background {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.sideBar_leyout{
+  display: grid;;
+  grid-template-columns: 1fr 20fr;
+}

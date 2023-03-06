@@ -1,0 +1,12 @@
+.side-bar-container {
+  width: 40%;
+  height: 100vh;
+  position: fixed;
+}
+
+.sidebar-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
