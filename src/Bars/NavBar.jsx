@@ -14,7 +14,8 @@ import { useNavigate } from "react-router"
 
 
 import "./NavBar.css"
-export const NavBar = () => {
+import { FaBars } from 'react-icons/fa';
+export const NavBar = ({toggle}) => {
   const { isLoading, error, userData: user, getUserByEmail } = useFirestore()
   const navigate = useNavigate()
   useEffect(() => {
@@ -30,8 +31,13 @@ export const NavBar = () => {
     navigate("/competitions-list")
     localStorage.removeItem("user")
   }
+  function handleSidebarToggle() {
+    toggle()
+  }
   return <nav className="nav-container">
-    <div></div>
+    <div style={{cursor:"pointer"}} onClick={handleSidebarToggle}>
+      <FaBars size="40" />
+    </div>
     <div className="image">
       <img alt={siteData.title}
         src={siteData.logo}

@@ -2,8 +2,55 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
-.sideBar_leyout{
-  display: grid;;
-  grid-template-columns: 1fr 20fr;
+
+.sideBar {
+  top: 10vh;
+  
+}
+
+.Outlet {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  padding-top: 10vh;
+  overflow-y: auto;
+  flex-grow: 1;
+  height: 100vh;
+  position: relative;
+  z-index: 11;
+
+}
+
+.navbar {
+  /* Remove position: fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10vh;
+  z-index: 2;
+}
+
+.page-side-outlet {
+  position: relative;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  /* Add overflow-y: auto to make outlet scrollable */
+  overflow-y: auto;
+  transition: dis 0.4s ease-in;
+
+}
+
+.toggledSideBar-outlet {
+  grid-template-columns: 1fr;
+  transform: translate(0);
+  transition: transform 0.4s ease-in;
+}
+.toggledSideBar{
+  display: none;
 }

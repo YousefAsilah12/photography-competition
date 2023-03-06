@@ -18,7 +18,7 @@ export const PostDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
+
     getPostById()
     const email = JSON.parse(localStorage.getItem("user")).email;
     getUserByEmail(email)
@@ -40,7 +40,7 @@ export const PostDetails = () => {
 
   async function handleCommentSubmit(event) {
     event.preventDefault();
-    
+
     if (!post.comments) post.comments = [];
 
     try {
@@ -83,6 +83,16 @@ export const PostDetails = () => {
       navigate(-1);
     } catch (e) {
       alert(e.message);
+    }
+  }
+  async function deleteComment(comment) {
+    debugger
+    post.comments.splice(post.comments.indexOf(comment), 1);
+    try {
+      await updateDocument(id, post, "posts")
+
+    } catch (error) {
+      alert(error.message)
     }
   }
   return (
@@ -137,10 +147,14 @@ export const PostDetails = () => {
                 post.comments.map((comment, index) => (
                   <div className="comment" key={index}>
                     <div className="user-info">
-                      <img src={comment.avatar} alt={comment.userName} />
-                      <p>{comment.userName}</p>
+                      <div>
+                        <img src={comment.avatar} alt={comment.userName} />
+                        <p>{comment.userName}</p>
+                      </div>
+                      <button onClick={() => { deleteComment(comment) }} className="delete-button" >Delete</button>
                     </div>
                     <p>{comment.comment}</p>
+
                   </div>
                 ))}
             </div>

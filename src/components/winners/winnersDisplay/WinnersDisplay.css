@@ -14,5 +14,9 @@
 }
 
 .winner-posts-wrapper .winner-post{
-  width: 100%;
+  width: 50vw;
+}
+.winner-posts-wrapper .winner-post img{
+    width: 50vw;
+
 }
