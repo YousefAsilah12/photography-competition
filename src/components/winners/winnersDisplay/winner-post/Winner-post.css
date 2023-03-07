@@ -1,12 +1,14 @@
 .post-show-container {
   width: fit-content;
-  border: 1px solid #ddd;
+  border: .3px solid var(--dark-color);
+  background-color: var(--secoundary-colorLowerOpacity);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;;
-  
+  padding: 1rem;
+  gap: 2rem;
 }
 .post-show-container  .post-img{
 width: 100%;
@@ -28,13 +30,19 @@ width: 100%;
   font-weight: bold;
   margin-bottom: 10px;
   display: flex;;
-  align-self: center;
+  align-items: center;
   justify-content: center;
 
 }
 
+.post-show-container .post-price span {
+  color: var(--fancy-color) !important;
+  font-style: bold;
+  font-size: 1.5rem;
+  text-shadow: 0px 0px 13px  var(--dark-color);
+}
+
 .post-show-container .buy-btn {
-  background-color: #4CAF50;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -45,11 +53,16 @@ width: 100%;
   margin-bottom: 10px;
   border-radius: 5px;
   cursor: pointer;
+  
 }
 .post-show-container .buttons-line {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+.delete-button-winner{
+  background-color:var(--dark-color);
+  color: var(--secoundary-color) !important;
 
 }

@@ -15,7 +15,8 @@ import { useFirestore } from "../../../../../services/competition";
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid"
 import { useNavigate } from 'react-router-dom';
-export function CreatePost({ competitionId, userId }) {
+import { compressImage } from "../../../../../services/imgResize";
+export function CreatePost({ competitionId, userId,addedPost }) {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -31,7 +32,7 @@ export function CreatePost({ competitionId, userId }) {
   }, [])
 
   async function handleImageAsFile() {
-    
+
 
     setPostMessage('loading ....');
 
@@ -41,6 +42,9 @@ export function CreatePost({ competitionId, userId }) {
     const imageLocattion = imageFile.name + v4()
     const imageRef = ref(storage, collectionName + imageLocattion)
     try {
+      setPostMessage('compressing the image.....')
+      const compressedImage = await compressImage(imageFile, 0.1);
+      setPostMessage('uploading........')
       const response = await uploadBytes(imageRef, imageFile)
       imageUrlRef.current = response.metadata.name;
       return true
@@ -52,7 +56,7 @@ export function CreatePost({ competitionId, userId }) {
 
   async function submiteForm(event) {
     event.preventDefault();
-    
+
     if (!user) {
       alert("to have to login first")
       return
@@ -69,9 +73,10 @@ export function CreatePost({ competitionId, userId }) {
         comments: []
       }
       try {
+        setPostMessage('loading........')
         const result = await addDocument(postObj, "posts")
         setPostMessage('post created successfully');
-        navigate(`/competition-gallery/${competitionId}`)
+        addedPost()
         setDescription("")
         setImageFile("")
         setTitle("")
@@ -102,6 +107,6 @@ export function CreatePost({ competitionId, userId }) {
     </div>
     <button type="submit" >add post</button>
 
-    {postMessage ? <h1>{postMessage}</h1> : null}
+    {postMessage ? <h2 style={{ color: "white" }}>{postMessage}</h2> : null}
   </form>
 }

@@ -23,10 +23,10 @@ export function CountDown({ finishDate, competition, competitionId, posts }) {
       return (
         <div className="time-container">
           <button onClick={checkForWinner}>testWinner</button>
-          <div>{days} : days</div>
-          <div>{hours} : hours</div>
-          <div>{minutes} : minutes</div>
-          <div>{seconds} : seconds</div>
+          <div className="time-row"><span>{days}</span> : days</div>
+          <div><span>{hours}</span> : hours</div>
+          <div><span>{minutes}</span> : minutes</div>
+          <div><span>{seconds}</span> : seconds</div>
         </div>
       )
     }
@@ -41,7 +41,7 @@ export function CountDown({ finishDate, competition, competitionId, posts }) {
   }
 
   async function checkForWinner() {
-    
+
     let max = posts[0]
     posts.forEach((item, index) => {
       if (item.votes > max.votes) {

@@ -64,10 +64,10 @@ export function WinnerPost({ post, onDelete,onBuyReload }) {
         <ImageComponent location="postsImage" imageName={post.imageUrl} />
       </div>
       <div className="post-footer">
-        <div className="post-price">Price: {post.votes * 20}$</div>
+        <div className="post-price"> <span>{post.votes * 20}</span> $</div>
         <div className="buttons-line">
           <button onClick={handleBuyNow} className="buy-btn">Buy Now</button>
-          <button onClick={handleDelete} style={{ backgroundColor: "red" }}>delete</button>
+          <button onClick={handleDelete} className="delete-button-winner" >delete</button>
         </div>
       </div>
     </div>

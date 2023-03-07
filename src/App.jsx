@@ -25,16 +25,17 @@ function App() {
           { path: "/competition-gallery/:id", element: <CompetitionGallery /> },
           { path: "/post-details/:id", element: <PostDetails /> },
           { path: "/winner-posts", element: <WinnersDisplay /> },
-          { path: "/login", element: <Login /> },
-          { path: "/register", element: <Register /> },
           { path: "/user-profile", element: <UserProfile /> },
         ]
-      }]
+      },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+    ]
   );
   return (
     // style={{backgroundImage:`url(${siteData.logo})`}}
     <div className="App background" >
-      <RouterProvider router={router} />  
+      <RouterProvider router={router} />
     </div>
   );
 

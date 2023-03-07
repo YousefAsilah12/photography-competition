@@ -1,14 +1,17 @@
 :root {
-  --primary-color: #5D132C;
+  --primary-color: #BF0F61;
   --secoundary-color: #FCFCF9;
   --dark-color: #0A0504;
   --fancy-color: #F22E2E;
   --line-height: 136%;
+  --secoundary-colorLowerOpacity:rgba(252,252,249,.6) ;
+  --dark-color-lower-opacity:rgba(10, 5, 4,.6) ;
 }
 
 html,
 body {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: var(--secoundary-color);
 }
 
 * {

@@ -11,7 +11,7 @@ export function ImageComponent(props) {
   const [error, setError] = useState(null);
   const [canDownload, setCanDownload] = useState(false);
   async function fetchImage() {
-    
+
     setIsLoading(true);
     setError(null);
 
@@ -45,6 +45,21 @@ export function ImageComponent(props) {
     link.click();
     document.body.removeChild(link);
   };
+  function downloadFile(url, fileName) {
+    // Create a link element and set its href attribute to the download URL
+    const link = document.createElement('a');
+    link.href = url;
+
+    // Set the link element's download attribute to the filename you want to save the file as
+    link.download = fileName;
+
+    // Click the link to download the file
+    document.body.appendChild(link);
+    link.click();
+
+    // Clean up the link element
+    document.body.removeChild(link);
+  }
 
 
   if (isLoading) {
@@ -61,6 +76,6 @@ export function ImageComponent(props) {
 
   return <>
     <img src={imageUrl} alt="Uploaded image" />
-    {canDownload ? <div style={{display:'block'}}> <button onClick={() => handleImageDownload(imageUrl)}>Download</button> </div>: null}
+    {canDownload ? <div style={{ display: 'block' }}> <button onClick={() => downloadFile(imageUrl, imageName)}>Download</button> </div> : null}
   </>
 }

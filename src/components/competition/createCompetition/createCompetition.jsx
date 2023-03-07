@@ -5,6 +5,7 @@ import { useFirestore } from '../../../services/competition';
 import { storage } from "../../../firebase/firebaseConfig"
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid"
+import { compressImage } from '../../../services/imgResize';
 export const CreateCompetition = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -26,7 +27,7 @@ export const CreateCompetition = () => {
 
 
   async function handleImageAsFile() {
-    
+
     setMessage({ error: false, message: 'loading ....' });
 
     const collectionName = "competitionImages/"
@@ -35,7 +36,10 @@ export const CreateCompetition = () => {
     const imageLocattion = imageFile.name + v4()
     const imageRef = ref(storage, collectionName + imageLocattion)
     try {
-      const response = await uploadBytes(imageRef, imageFile)
+      setMessage({ error: false, message: 'compressing ....' });
+      const compressedImage = await compressImage(imageFile, 0.1);
+      setMessage({ error: false, message: 'uploading.....' });
+      const response = await uploadBytes(imageRef, compressedImage)
       console.log("response", response);
       imageUrlRef.current = response.metadata.name;
       return true
@@ -83,6 +87,7 @@ export const CreateCompetition = () => {
       };
 
       try {
+        setMessage({ error: false, message: 'loading....' });
         await addDocument(competitionObj, "competition");
         setMessage({ error: false, message: 'Competition created successfully' });
         navigate('/competitions-list');
@@ -96,6 +101,7 @@ export const CreateCompetition = () => {
       }
     }
   }
+
   return (
     <form className='formWrapper' onSubmit={handleSubmit}>
       <div>
@@ -127,7 +133,7 @@ export const CreateCompetition = () => {
       </div>
 
       <button type="submit">Create Competition</button>
-      {message.message ? <h1 className={message.error ? "error" : "success"}>{message.message}</h1> : null}
+      {message.message ? <h1 style={{ color: 'white' }} >{message.message}</h1> : null}
     </form>
   );
 };

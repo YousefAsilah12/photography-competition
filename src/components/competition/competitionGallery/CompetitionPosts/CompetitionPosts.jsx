@@ -11,19 +11,21 @@ import { ImageComponent } from "../../imageComponent/Imgage";
 
 
 import { useNavigate } from "react-router";
-export function CompetitionPosts({ post, competition, id, voted, updateVoted }) {
+export function CompetitionPosts({ post, competition, id, voted, updateVoted, competitionId }) {
   const { updateDocument, isLoading, dataById: user, loadAll, getCompetitionById } = useFirestore()
   const [message, setMessage] = useState(null)
   const navigate = useNavigate()
   console.log("voted", voted);
   useEffect(() => {
     getCompetitionById(post.userId, "users");
+    console.log(competitionId);
   }, [])
 
   async function voteHandle() {
     //after that we need to check user that voted only 1 time 
+
     if (voted) return
-    post.votes = post.votes + 1;
+    post.votes += 1
     try {
       await updateDocument(post.id, post, "posts");
       updateVoted()
@@ -32,7 +34,7 @@ export function CompetitionPosts({ post, competition, id, voted, updateVoted }) 
     }
   }
   return (
-    <div>
+    <div className="post-styling">
       <div onClick={() => { navigate(`/post-details/${post.id}`) }}>
         <div key={post.competitionId} className="post-container">
           <div>

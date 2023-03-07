@@ -1,13 +1,4 @@
 
-
-
-
-
-
-
-
-
-
 import { useEffect, useState } from "react"
 import { useFirestore } from "../../services/competition"
 import { useNavigate } from 'react-router-dom'
@@ -20,22 +11,19 @@ export const Login = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-     fetchData("users")
+    fetchData("users")
   }, [])
-
-
-
 
   function checkIfLoggedIn() {
     const user = JSON.parse(localStorage.getItem("user"))
-    
+
     console.log(user);
     if (!user) {
       navigate("/login")
       return
     }
     if (user.email && user.password) {
-      if (userFound(user.email,user.password)) {
+      if (userFound(user.email, user.password)) {
         navigate("/competitions-list")
       }
     }
@@ -64,23 +52,34 @@ export const Login = () => {
       navigate("/competitions-list")
     }
   }
-  return <form className="form-login" onSubmit={loginHandle}>
-    <div className="login-form-group">
-      <h1>Login Form</h1>
-    </div>
-    <div className="login-form-group">
-      <label htmlFor="email">Email</label>
-      <input onChange={(e) => { setEmail(e.target.value) }} type="email" name="email" id="email" />
-    </div>
-    <div className="login-form-group">
-      <label htmlFor="password">Password</label>
-      <input onChange={(e) => { setPassword(e.target.value) }} type="password" name="password" id="password" />
-    </div>
+  return <div className="login-page">
+    <div className="backdrop-login"></div>
     <div>
-      {message ? <h1>{message}</h1> : null}
+      <form className="form-login" onSubmit={loginHandle}>
+        <div className="form-container">
+          <div className="login-form-group">
+            <h1 >Login Form</h1>
+
+          </div>
+          <div>
+
+          <div className="login-form-group">
+            <label htmlFor="email">Email</label>
+            <input onChange={(e) => { setEmail(e.target.value) }} type="email" name="email" id="email" />
+          </div>
+          <div className="login-form-group">
+            <label htmlFor="password">Password</label>
+            <input onChange={(e) => { setPassword(e.target.value) }} type="password" name="password" id="password" />
+          </div>
+          <div>
+            {message ? <h1>{message}</h1> : null}
+          </div>
+          <div className="login-form-group">
+            <input type="submit" value="Login" className="login-submite-button" />
+          </div>
+          </div>
+        </div>
+      </form>
     </div>
-    <div className="login-form-group">
-      <input type="submit" value="submit" className="login-submite-button" />
-    </div>
-  </form>
+  </div>
 }

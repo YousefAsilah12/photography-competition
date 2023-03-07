@@ -54,6 +54,7 @@ export function Register() {
       userName,
       rule: "user",
       voted: false,
+      votedFor: []
     }
     if (checkUserIncluded(registerObject)) return
     try {
@@ -80,29 +81,38 @@ export function Register() {
 
 
   }
-  return <form className="form-register" onSubmit={registerHandle}>
-    <div className="register-form-group">
-      <h1>register Form</h1>
-    </div>
-    <div className="register-form-group">
-      <label htmlFor="userName">user name</label>
-      <input onChange={(e) => setUserName(e.target.value)} type="text" maxLength="16" min="3" required name="userName" id="userName" />
-    </div>
-    <div className="register-form-group">
-      <label htmlFor="email">Email</label>
-      <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" required id="email" />
-    </div>
-    <div className="register-form-group">
-      <label htmlFor="password">Password</label>
-      <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" required id="password" />
-    </div>
-    <div className="register-form-group">
-      <label htmlFor="re-password">retype password</label>
-      <input onChange={(e) => setrePassword(e.target.value)} type="password" name="re-password" required id="re-password" />
-    </div>
-    <div className="register-form-group">
-      <input type="submit" value="submit" className="register-submite-button" />
-    </div>
-    {message ? <h3>{message}</h3> : null}
-  </form>
+  return  <div className="login-page">
+  <div className="backdrop-login"></div>
+  <div>
+    <form className="form-register" onSubmit={registerHandle}>
+      <div className="form-container">
+        <div className="login-form-group">
+          <h1 >Register Form</h1>
+
+        </div>
+        <div>
+        <div className="login-form-group">
+          <label htmlFor="userName">User Name</label>
+          <input onChange={(e) => { setUserName(e.target.value) }} type="text" maxLength="16" minLength="3" required name="userName" id="userName" />
+        </div>
+        <div className="login-form-group">
+          <label htmlFor="email">Email</label>
+          <input onChange={(e) => { setEmail(e.target.value) }} type="email" name="email" required id="email" />
+        </div>
+        <div className="login-form-group">
+          <label htmlFor="password">Password</label>
+          <input onChange={(e) => { setPassword(e.target.value) }} type="password" name="password" required id="password" />
+        </div>
+        <div className="login-form-group">
+          <label htmlFor="re-password">Retype Password</label>
+          <input onChange={(e) => { setrePassword(e.target.value) }} type="password" name="re-password" required id="re-password" />
+        </div>
+        <div className="login-form-group">
+          <input type="submit" value="Register" className="login-submite-button" />
+        </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 }

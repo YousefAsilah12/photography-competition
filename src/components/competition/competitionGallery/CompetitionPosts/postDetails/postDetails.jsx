@@ -8,7 +8,7 @@ import "./postDetails.css"
 import { useEffect, useState } from "react";
 import { useFirestore } from "../../../../../services/competition";
 import { ImageComponent } from "../../../imageComponent/Imgage";
-
+import { FaTrash } from 'react-icons/fa';
 export const PostDetails = () => {
   const { id } = useParams();
   const { getCompetitionById, dataById: post, isLoading, error, updateDocument, getUserByEmail, deleteDocument, userData: loggedInUser } = useFirestore();
@@ -96,7 +96,7 @@ export const PostDetails = () => {
     }
   }
   return (
-    <>
+    <div className="full-detail-page">
       <div className="post-details-container">
         <div className="left-details-side">
           {isEditing ? (
@@ -151,7 +151,7 @@ export const PostDetails = () => {
                         <img src={comment.avatar} alt={comment.userName} />
                         <p>{comment.userName}</p>
                       </div>
-                      <button onClick={() => { deleteComment(comment) }} className="delete-button" >Delete</button>
+                      <button  onClick={() => { deleteComment(comment) }} className="deleteButtonDetails"><FaTrash /></button>
                     </div>
                     <p>{comment.comment}</p>
 
@@ -195,7 +195,7 @@ export const PostDetails = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
 
   );
 }

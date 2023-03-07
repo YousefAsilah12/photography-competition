@@ -5,10 +5,12 @@
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  width: 100%;
 }
 
 .competition-card {
-  background-color: #f0f0f0;
+  background-color:var(--secoundary-color);
+  color: var(--dark-color);
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
@@ -56,18 +58,19 @@
 }
 
 button {
-  background-color: #4CAF50;
-  border: none;
+  background-color: var(--fancy-color);
+  color: var(--dark-color) !important;
+  font-weight: 600;
+  border: none; 
   border-radius: 5px;
   color: white;
   cursor: pointer;
-  font-size: 16px;
-  padding: 10px 20px;
-  transition: background-color 0.3s;
+  font-size: 1rem;
+  padding: .7rem 2rem;
 }
 
 button:hover {
-  background-color: #3e8e41;
+  opacity: .8;
 }
 .competition-card .submit-button {
   display: block;
@@ -91,10 +94,9 @@ button:hover {
   justify-content: space-around;
 }
 .editButton{
-  background-color: yellow !important;;
-  color: black ;
+  background-color:var(--fancy-color) !important;;
 }
 .deleteButton{
-  background-color: red !important;;
-  color: black ;
+  background-color: var(--dark-color) !important;;
+  color: var(--secoundary-color) !important;
 }

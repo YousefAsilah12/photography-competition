@@ -27,6 +27,7 @@
 
 .nav-item:hover {
   background-color: var(--dark-color);
+  color: var(--secoundary-color);
   padding: 1.5rem;
   border-radius: 15px;
   font-size: 1.7rem;
@@ -51,3 +52,4 @@
   color: var(--dark-color);
 
 }
+
