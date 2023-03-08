@@ -3,9 +3,9 @@ import Countdown from 'react-countdown';
 import "./countDown.css"
 import { useFirestore } from "../../../../services/competition";
 import { updateDoc } from "firebase/firestore";
-export function CountDown({ finishDate, competition, competitionId, posts }) {
+export function CountDown({ onTestWinner, finishDate, competition, competitionId, posts }) {
 
-  const { isLoading, error, data: winners, fetchData, addDocument } = useFirestore()
+  const { isLoading, error, data: winners, fetchData, addDocument, updateDocument } = useFirestore()
 
   useEffect(() => {
     fetchData("winners")
@@ -14,7 +14,7 @@ export function CountDown({ finishDate, competition, competitionId, posts }) {
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render something when the countdown is complete
-
+      if (posts.length > 0 && competition.active === true) { checkForWinner() }
       return <div>
         <span>Countdown finished!</span>;
       </div>
@@ -22,11 +22,13 @@ export function CountDown({ finishDate, competition, competitionId, posts }) {
       // Render the countdown
       return (
         <div className="time-container">
-          <button onClick={checkForWinner}>testWinner</button>
+          <button disabled={!competition.active || posts.length === 0} title={!competition.active ? "competition finished" : posts.length === 0 ? "no posts" : "checkwinner"} className="vote-Button" onClick={checkForWinner}>testWinner</button>
+
           <div className="time-row"><span>{days}</span> : days</div>
           <div><span>{hours}</span> : hours</div>
           <div><span>{minutes}</span> : minutes</div>
           <div><span>{seconds}</span> : seconds</div>
+
         </div>
       )
     }
@@ -41,7 +43,7 @@ export function CountDown({ finishDate, competition, competitionId, posts }) {
   }
 
   async function checkForWinner() {
-
+    debugger
     let max = posts[0]
     posts.forEach((item, index) => {
       if (item.votes > max.votes) {
@@ -58,6 +60,10 @@ export function CountDown({ finishDate, competition, competitionId, posts }) {
     try {
 
       await addDocument(max, "winners")
+      competition.active = false
+      console.log(competition);
+      await updateDocument(competitionId, competition, "competition")
+      onTestWinner()
       alert("addedWInner")
     } catch (error) {
       alert(error.message)
@@ -66,7 +72,8 @@ export function CountDown({ finishDate, competition, competitionId, posts }) {
 
   return (
     <div className="countdownStyle">
-      <Countdown date={finishDate} renderer={renderer} />
+      {competition.active === true ? <Countdown date={finishDate} renderer={renderer} /> :
+        <h1 style={{ color: "black" }}>competition finished</h1>}
     </div>)
 }
 

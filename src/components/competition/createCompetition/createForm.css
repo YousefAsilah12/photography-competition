@@ -1,14 +1,53 @@
-.formWrapper{
-  display: flex;;
+.formWrapper {
+  display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;;
-  gap: 1rem;
+  align-items: center;
+  gap: 1.3rem;
   text-align: center;
+  width: 30vw;
+  border: 1px white solid;
+  padding: 2rem;
+  margin-top: 2rem;
+  border-radius: 10px;
+  background-color: var(--secoundary-colorLowerOpacity);
+  color: var(--dark-color);
 }
-.error{
+
+.formWrapper div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: start;
+  width: 100%;
+  gap: 1rem;
+}
+.formWrapper div label  {
+  align-self: stretch;
+
+}
+.formWrapper input,
+.formWrapper textarea {
+  width: 100% !important;
+  padding: 0 1rem;
+}
+.formWrapper input
+{
+height: 2rem;
+border-radius: 5px;
+border:none !important;
+font-weight: bolder;
+}
+.formWrapper textarea{
+  height: 6rem;
+}
+
+.error {
   color: red;
 }
-.success{
-  color: blue;;
+
+.success {
+  color: blue;
+  ;
 }

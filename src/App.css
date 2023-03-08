@@ -7,10 +7,16 @@
   height: 100%;
 }
 
-.sideBar {
-  top: 10vh;
+.sideBarParent {
+  transition: all 2s;
 
 }
+
+.sideBar {
+  top: 10vh;
+  width:100%;
+}
+
 
 .Outlet {
   display: flex;
@@ -24,6 +30,7 @@
   z-index: 11;
   background-color: var(--dark-color-lower-opacity);
 
+  transition: all 1s ;
 }
 
 .navbar {
@@ -39,19 +46,21 @@
   position: relative;
   width: 100vw;
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 25% 75%;
   /* Add overflow-y: auto to make outlet scrollable */
 
 }
 
 .toggledSideBar-outlet {
-  grid-template-columns: 1fr;
+  display: grid;
+  grid-template-columns: 0 100%;
   max-height: 90vh;
 }
 
 .toggledSideBar {
-  display: none;
+  /* display: none; */
   /* animation: slide-in-right 2s ease-in-out; */
+  opacity: 0;
 }
 
 @media (max-width:500px) {
@@ -60,14 +69,3 @@
   }
 }
 
-@keyframes slide-in-right {
-  0% {
-    transform: translateX(-50%);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}

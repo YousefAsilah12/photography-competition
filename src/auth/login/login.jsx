@@ -1,9 +1,12 @@
 
+
+
+
 import { useEffect, useState } from "react"
 import { useFirestore } from "../../services/competition"
 import { useNavigate } from 'react-router-dom'
 import "./login.css"
-export const Login = () => {
+export const Login = ({ onLogin }) => {
   const { data: users, isLoading, error, fetchData } = useFirestore()
   const [message, setMessage] = useState("")
   const [email, setEmail] = useState("")
@@ -24,6 +27,7 @@ export const Login = () => {
     }
     if (user.email && user.password) {
       if (userFound(user.email, user.password)) {
+        onLogin()
         navigate("/competitions-list")
       }
     }
@@ -49,6 +53,7 @@ export const Login = () => {
     }
     if (userFound(email, password)) {
       localStorage.setItem("user", JSON.stringify({ email, password }))
+      onLogin()
       navigate("/competitions-list")
     }
   }
@@ -63,20 +68,20 @@ export const Login = () => {
           </div>
           <div>
 
-          <div className="login-form-group">
-            <label htmlFor="email">Email</label>
-            <input onChange={(e) => { setEmail(e.target.value) }} type="email" name="email" id="email" />
-          </div>
-          <div className="login-form-group">
-            <label htmlFor="password">Password</label>
-            <input onChange={(e) => { setPassword(e.target.value) }} type="password" name="password" id="password" />
-          </div>
-          <div>
-            {message ? <h1>{message}</h1> : null}
-          </div>
-          <div className="login-form-group">
-            <input type="submit" value="Login" className="login-submite-button" />
-          </div>
+            <div className="login-form-group">
+              <label htmlFor="email">Email</label>
+              <input onChange={(e) => { setEmail(e.target.value) }} type="email" name="email" id="email" />
+            </div>
+            <div className="login-form-group">
+              <label htmlFor="password">Password</label>
+              <input onChange={(e) => { setPassword(e.target.value) }} type="password" name="password" id="password" />
+            </div>
+            <div>
+              {message ? <h1>{message}</h1> : null}
+            </div>
+            <div className="login-form-group">
+              <input type="submit" value="Login" className="login-submite-button" />
+            </div>
           </div>
         </div>
       </form>

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { extractDateTime } from "../../../services/date";
 import { ImageComponent } from "../imageComponent/Imgage";
 export const CompetitionsDisplay = (props) => {
-  const { data: competition, isLoading, error, updateDocument, deleteDocument, fetchData } = useFirestore();
+  const { data: competition, isLoading, error, updateDocument, deleteDocument, fetchData, getUserByEmail, userData } = useFirestore();
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
@@ -19,6 +19,10 @@ export const CompetitionsDisplay = (props) => {
   });
   useEffect(() => {
     fetchData("competition");
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      getUserByEmail(user.email)
+    }
   }, [])
 
   const handleEdit = (competition) => {
@@ -69,7 +73,7 @@ export const CompetitionsDisplay = (props) => {
       }
       else {
         window.close();
-        return 
+        return
       }
     }
 
@@ -78,7 +82,7 @@ export const CompetitionsDisplay = (props) => {
   }
   return (
     <div className="competitions-display">
-      <button onClick={() => { navigate("/create-competition") }}>add competition</button>
+      {(userData[0] && userData[0].rule === "admin") && <button onClick={() => { navigate("/create-competition") }}>add competition</button>}
       {competition.map((comp) => (
         <div className="competition-card" key={comp.id}>
           {isEditing && selectedCompetition?.id === comp.id ? (
@@ -145,9 +149,16 @@ export const CompetitionsDisplay = (props) => {
                 <p>Finish Date: {dateToString(comp.finishDate)}</p>
               </div>
               <div className="compBottombuttons">
-                <button className="editButton" onClick={() => handleEdit(comp)}>Edit</button>
-                <button className="deleteButton" onClick={() => handledelete(comp.id)}>delete</button>
-                <button onClick={() => { handleJoin(comp.id) }}>join</button>
+                <div>
+
+                  {(userData[0] && userData[0].rule === "admin") && <button className="editButton" onClick={() => handleEdit(comp)}>Edit</button>}
+                </div>
+                <div>
+                  {(userData[0] && userData[0].rule === "admin") && <button className="deleteButton" onClick={() => handledelete(comp.id)}>delete</button>}
+                </div>
+                <div>
+                  <button onClick={() => { handleJoin(comp.id) }}>join</button>
+                </div>
               </div>
             </>
           )}

@@ -34,6 +34,7 @@ export function CompetitionPosts({ post, competition, id, voted, updateVoted, co
     }
   }
   return (
+    user &&
     <div className="post-styling">
       <div onClick={() => { navigate(`/post-details/${post.id}`) }}>
         <div key={post.competitionId} className="post-container">
@@ -55,9 +56,11 @@ export function CompetitionPosts({ post, competition, id, voted, updateVoted, co
           </h2>
         </div>}
         <div>
-          <button className="vote-Button" disabled={voted} title={voted ? "alreadyVoted" : "vote"} onClick={voteHandle}>Vote</button>
+          <button className="vote-Button" disabled={voted || competition.active === false} title={voted ? "alreadyVoted" : competition.active === false ? "competition finished" : "vote"} onClick={voteHandle}>
+            Vote
+          </button>
         </div>
       </div>
-    </div>
+    </div >
   )
 }

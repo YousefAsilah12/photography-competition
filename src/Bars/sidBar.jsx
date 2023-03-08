@@ -10,7 +10,7 @@ export const SideBar = () => {
   const { isLoading, error, userData, getUserByEmail } = useFirestore()
   const [user, setUser] = useState("")
   const location = useLocation()
-  const navigtate=useNavigate()
+  const navigtate = useNavigate()
 
   useEffect(() => {
     const userLoggedIn = JSON.parse(localStorage.getItem('user'))
@@ -24,6 +24,7 @@ export const SideBar = () => {
 
 
   useEffect(() => {
+    debugger
     if (userData) {
       if (userData[0].rule === "admin") {
         setRoutes(routesAdmin)
@@ -37,9 +38,10 @@ export const SideBar = () => {
 
   return (
     <div className='side-bar-contaienr'>
-      {user ? <div onClick={()=>{navigtate("/user-profile")}} className='user-info-sideBar' >
+      {user ? <div onClick={() => { navigtate("/user-profile") }} className='user-info-sideBar' >
         <Avatar src={user.avatar} size="100" round={true} />
         <h1 >{user.userName}</h1>
+        {user.rule === "admin" && <h1 className='userRule'>{user.rule}</h1> }
       </div> : null}
       <nav className='sidebar-items'>
         {Routes.map((route, index) => {

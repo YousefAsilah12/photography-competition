@@ -32,7 +32,7 @@ export function WinnersDisplay() {
     return <h1>no images to sell</h1>
   }
   return (
-    winners.length > 0 ? (
+    (winners.length > 0) ? (
       <div className="winner-posts-wrapper">
         {winners.map((post, index) => (
           <div className="winner-post" key={post.id}>

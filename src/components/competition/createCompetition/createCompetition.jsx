@@ -6,6 +6,7 @@ import { storage } from "../../../firebase/firebaseConfig"
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid"
 import { compressImage } from '../../../services/imgResize';
+import { isDateUpToToday, isFinishAfterStart } from '../../../services/date';
 export const CreateCompetition = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -51,54 +52,65 @@ export const CreateCompetition = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!title) {
+      setMessage({ error: true, message: 'Title is required' });
+      return;
+    }
+    else if (!description) {
+      setMessage({ error: true, message: 'Description is required' });
+      return;
+    }
+    else if (!startDate) {
+      setMessage({ error: true, message: 'Start date is required' });
+      return;
+    }
+    else if (!isDateUpToToday(startDate)) {
+      setMessage({ error: true, message: 'you cant choose date in the past' });
+      return;
+    }
+    else if (!finishDate) {
+      setMessage({ error: true, message: 'Finish date is required' });
+      return;
+    }
+    else if (!isFinishAfterStart(startDate, finishDate)) {
+      setMessage({ error: true, message: 'finish date cant be before start date !' });
+      return;
+    }
+    
     const addedImg = await handleImageAsFile()
+    if (!addedImg) {
+      setMessage({ error: true, message: 'Image could not be uploaded' });
+      return
+    }
+    else if (!imageUrlRef.current) {
+      setMessage({ error: true, message: 'Image URL is required' });
+      return;
+    }
+    const competitionObj = {
+      title,
+      description,
+      startDate,
+      finishDate,
+      imageUrl: imageUrlRef.current,
+      participants: [],
+      posts: [],
+      winners: [],
+      active: true,
+    };
 
-    if (addedImg == true) {
-      if (!title) {
-        setMessage({ error: true, message: 'Title is required' });
-        return;
-      }
-      if (!description) {
-        setMessage({ error: true, message: 'Description is required' });
-        return;
-      }
-      if (!startDate) {
-        setMessage({ error: true, message: 'Start date is required' });
-        return;
-      }
-      if (!finishDate) {
-        setMessage({ error: true, message: 'Finish date is required' });
-        return;
-      }
-      if (!imageUrlRef.current) {
-        setMessage({ error: true, message: 'Image URL is required' });
-        return;
-      }
-      const competitionObj = {
-        title,
-        description,
-        startDate,
-        finishDate,
-        imageUrl: imageUrlRef.current,
-        participants: [],
-        posts: [],
-        winners: [],
-        active: true,
-      };
-
-      try {
-        setMessage({ error: false, message: 'loading....' });
-        await addDocument(competitionObj, "competition");
-        setMessage({ error: false, message: 'Competition created successfully' });
-        navigate('/competitions-list');
-        setTitle('');
-        setDescription('');
-        setStartDate('');
-        setFinishDate('');
-        setMessage({ error: false, message: '' });
-      } catch (e) {
-        setMessage({ error: true, message: e.message });
-      }
+    try {
+      setMessage({ error: false, message: 'loading....' });
+      await addDocument(competitionObj, "competition");
+      setMessage({ error: false, message: 'Competition created successfully' });
+      navigate('/competitions-list');
+      setTitle('');
+      setDescription('');
+      setStartDate('');
+      setFinishDate('');
+      setMessage({ error: false, message: '' });
+    } catch (e) {
+      setMessage({ error: true, message: e.message });
     }
   }
 
@@ -128,8 +140,8 @@ export const CreateCompetition = () => {
 
       <div>
 
-        <label htmlFor="image-url">Image URL</label>
-        <input type="file" id="image-url" onChange={(e) => setImageFile(e.target.files[0])} />
+        <label htmlFor="image-url">select image</label>
+        <input type="file" placeholder='select' id="image-url" onChange={(e) => setImageFile(e.target.files[0])} />
       </div>
 
       <button type="submit">Create Competition</button>

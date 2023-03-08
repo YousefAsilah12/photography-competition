@@ -1,4 +1,4 @@
-import { Children, useState } from 'react'
+import { Children, useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import './App.css'
@@ -13,22 +13,42 @@ import { UserProfile } from './user/userProfile';
 import { siteData } from './data/siteData';
 import { Bars } from './Bars/Bars';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { useFirestore } from './services/competition';
 function App() {
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const { getUserByEmail, userData } = useFirestore()
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      getUserByEmail(user.email)
+    }
+  }, [])
+  useEffect(() => {
+    if (userData) {
+      setUserLoggedIn(true);
+    }
+  }, [userData])
+
+  function handleLogin() {
+    console.log("appHandleLogin");
+    setUserLoggedIn(true);
+  }
+
+
   const router = createBrowserRouter(
     [
       {
         path: "", element: <Bars />, children: [
-          { path: "/", element: <CompetitionWraper /> },
-          { path: "/create-competition", element: <CompetitionWraper /> },
-          { path: "", element: <Login /> },
+          { path: "/", element: <CompetitionsDisplay /> },
+          { path: "/create-competition", element: userLoggedIn && <CompetitionWraper /> },
           { path: "/competitions-list", element: <CompetitionsDisplay /> },
-          { path: "/competition-gallery/:id", element: <CompetitionGallery /> },
-          { path: "/post-details/:id", element: <PostDetails /> },
-          { path: "/winner-posts", element: <WinnersDisplay /> },
-          { path: "/user-profile", element: <UserProfile /> },
+          { path: "/competition-gallery/:id", element: userLoggedIn && <CompetitionGallery /> },
+          { path: "/post-details/:id", element: userLoggedIn && < PostDetails /> },
+          { path: "/winner-posts", element: userLoggedIn && <WinnersDisplay /> },
+          { path: "/user-profile", element: userLoggedIn && <UserProfile /> },
         ]
       },
-      { path: "/login", element: <Login /> },
+      { path: "/login", element: <Login onLogin={handleLogin} /> },
       { path: "/register", element: <Register /> },
     ]
   );

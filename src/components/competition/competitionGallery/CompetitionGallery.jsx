@@ -76,18 +76,19 @@ export function CompetitionGallery() {
     }
     getUserByEmail(loggedInData[0].email);
   }
-  function addedPostHandle() {
-    fetchData("posts");
+  async function addedPostHandle() {
+    await fetchData("posts");
+    setAddPost(false)
   }
   return (
     loggedInData && posts ?
       <div className='competition-posts'>
         {competition ? <div >
-          <CountDown competitionId={id} finishDate={competition.finishDate} competition={competition} posts={filteredPosts} />
+          <CountDown onTestWinner={addedPostHandle} competitionId={id} finishDate={competition.finishDate} competition={competition} posts={filteredPosts} />
         </div> : null}
         <div className='addPost-button'>
           {/* <button onClick={() => { setAddPost(true) }}>Add Post</button> */}
-          <button onClick={() => { setAddPost(true) }}>Add Post</button>
+          <button className="vote-Button" disabled={competition.active === false} title={competition.active === false ? "competition finished" : "add post"} onClick={() => { setAddPost(true) }}>Add Post</button>
           {addPost ?
             <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: "center", gap: "1rem" }}>
               <CreatePost competitionId={id} userId={1} setAddPost={setAddPost} addedPost={addedPostHandle} />

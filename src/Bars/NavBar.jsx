@@ -30,6 +30,7 @@ export const NavBar = ({ toggle }) => {
   }
   function handleLogout() {
     console.log("tmam");
+    localStorage.removeItem("user")
     navigate("/login")
   }
   function handleSidebarToggle() {

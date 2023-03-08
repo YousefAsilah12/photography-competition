@@ -12,3 +12,7 @@
   flex-direction: column;
 
 }
+.create-post-style div {
+  display: flex;
+  flex-direction: column;
+}

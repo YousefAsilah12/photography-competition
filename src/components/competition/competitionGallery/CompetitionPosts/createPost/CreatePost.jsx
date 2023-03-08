@@ -16,7 +16,7 @@ import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid"
 import { useNavigate } from 'react-router-dom';
 import { compressImage } from "../../../../../services/imgResize";
-export function CreatePost({ competitionId, userId,addedPost }) {
+export function CreatePost({ competitionId, userId, addedPost }) {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -61,7 +61,27 @@ export function CreatePost({ competitionId, userId,addedPost }) {
       alert("to have to login first")
       return
     }
+    if (!title) {
+      setPostMessage("please enter title")
+      return
+    }
+    else if (!description) {
+      setPostMessage("please enter description")
+      return
+    }
+    else if (!imageFile) {
+      setPostMessage("please enter image file")
+      return
+    }
     const addedImg = await handleImageAsFile()
+    if (!addedImg) {
+      setPostMessage("image cant be uploaded")
+      return
+    }
+    if (!imageUrlRef) {
+      setPostMessage("image cant be uploaded")
+      return
+    }
     if (addedImg == true) {
       const postObj = {
         title,
@@ -90,14 +110,13 @@ export function CreatePost({ competitionId, userId,addedPost }) {
       return;
     }
   }
-  return <form className="create-post-style" onSubmit={submiteForm}>
+  return <form className="formWrapper" onSubmit={submiteForm}>
 
     <div className="create-post-formGroup">
       <label htmlFor="title">title</label>
       <input type="text" id="title" name="title" onChange={(e) => setTitle(e.target.value)} />
     </div>
     <div className="create-post-formGroup">
-
       <label htmlFor="description">description</label>
       <textarea type="text" id="description" name="description" onChange={(e) => setDescription(e.target.value)} />
     </div>

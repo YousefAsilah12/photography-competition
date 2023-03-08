@@ -8,3 +8,21 @@ export function extractDateTime(datetimeStr) {
     time: timeStr
   };
 }
+
+export function isDateUpToToday(dateString) {
+  const date = new Date(dateString);
+  const today = new Date();
+
+  // Remove time information from dates to compare only date information
+  const dateWithoutTime = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const todayWithoutTime = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+  return dateWithoutTime >= todayWithoutTime;
+}
+
+export function isFinishAfterStart(startDate, finishDate) {
+  const start = new Date(startDate);
+  const finish = new Date(finishDate);
+
+  return finish > start;
+}

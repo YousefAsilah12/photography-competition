@@ -34,7 +34,7 @@ export function Bars() {
           <NavBar toggle={handleToggle} />
         </div>
         <div className={toggled ? "toggledSideBar-outlet" : "page-side-outlet"}>
-          <div style={{ zIndex: "3" }} className={toggled ? "toggledSideBar" : "sideBar"}>
+          <div style={{ zIndex: "3" }} className={`sideBarParent ${toggled ? "toggledSideBar" : "sideBar"} `}>
             <SideBar />
           </div>
           <div className="Outlet" style={{ paddingTop: "1vh", zIndex: "0" }}>
