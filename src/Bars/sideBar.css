@@ -1,17 +1,17 @@
 .side-bar-contaienr {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  background-color: rgb(93, 19, 44, .6);
+  background-color: var(--sideBar-color);
 }
 
 .sidebar-items {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: .5rem;
   padding: 1rem;
   color: white !important;
 
@@ -21,7 +21,7 @@
   color: var(--secoundary-color);
   line-height: 2rem;
   letter-spacing: 1px;
-  font-size: 1.5rem;
+  font-size: 1rem;
 
 }
 
@@ -30,13 +30,11 @@
   color: var(--secoundary-color);
   padding: 1.5rem;
   border-radius: 15px;
-  font-size: 1.7rem;
+  font-size: 1rem;
 }
 
 .selected {
-  background-color: var(--secoundary-color);
-  color: var(--dark-color);
-  padding: 1.5rem;
+  color: var(--NavBar-color);
   border-radius: 15px;
 }
 
@@ -45,21 +43,26 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  ;
-  gap: 2rem;
+  gap: .5rem;
   margin-bottom: 2rem;
   letter-spacing: .1rem;
-  color: var(--dark-color);
+  color: var(--NavBar-color);
 
 }
 
-.userRule{
+.userRule {
   color: var(--fancy-color);
-  letter-spacing: .1rem;
   width: 100;
-  text-shadow: 0px 0px 13px  var(--dark-color);
-  background-color: var(--secoundary-color);
-  padding: 1rem;
+  color: var(--dark-color);
+  background-color: var(--NavBar-color);
+  padding: 0 1rem;
   border-radius: 10px;
 }
 
+.sideLayout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;;
+  height: 100%;
+}

@@ -1,9 +1,9 @@
+import { CreateCompetition } from "../createCompetition/createCompetition"
 
 
 
 
 
-import { CreateCompetition } from "../createCompetition/createCompetition";
 
 export const CompetitionWraper = () => {
 

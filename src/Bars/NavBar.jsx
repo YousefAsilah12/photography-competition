@@ -41,9 +41,9 @@ export const NavBar = ({ toggle }) => {
       <FaBars size="40" />
     </div>
     <div className="image">
-      <img alt={siteData.title}
+      {/* <img alt={siteData.title}
         src={siteData.logo}
-      />
+      /> */}
     </div>
     <div className="button">
       {user ? <button onClick={handleLogout} className="logout-button">Logout</button> :

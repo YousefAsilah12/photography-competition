@@ -2,11 +2,11 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./createForm.css"
 import { useFirestore } from '../../../services/competition';
-import { storage } from "../../../firebase/firebaseConfig"
+import { storage } from '../../../firebase/firebaseConfig';
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid"
 import { compressImage } from '../../../services/imgResize';
-import { isDateUpToToday, isFinishAfterStart } from '../../../services/date';
+import { isDateUpToToday, isFinishAfterStart}from "../../../services/date"
 export const CreateCompetition = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -28,9 +28,7 @@ export const CreateCompetition = () => {
 
 
   async function handleImageAsFile() {
-
     setMessage({ error: false, message: 'loading ....' });
-
     const collectionName = "competitionImages/"
     if (imageFile === null) return
     //v4 function using uuid library to generate unique id
@@ -43,7 +41,7 @@ export const CreateCompetition = () => {
       const response = await uploadBytes(imageRef, compressedImage)
       console.log("response", response);
       imageUrlRef.current = response.metadata.name;
-      return true
+      return true;
     } catch (error) {
       alert("field to upload the image")
     }

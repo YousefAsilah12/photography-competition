@@ -80,9 +80,11 @@ export const CompetitionsDisplay = (props) => {
     navigate(`/competition-gallery/${id}`)
 
   }
-  return (
+  return (<div className="competitionPageLayout">
+  <div>
+    {(userData[0] && userData[0].rule === "admin") && <button onClick={() => { navigate("/create-competition") }} className="addCopetitionButton">add competition</button>}
+  </div>
     <div className="competitions-display">
-      {(userData[0] && userData[0].rule === "admin") && <button onClick={() => { navigate("/create-competition") }}>add competition</button>}
       {competition.map((comp) => (
         <div className="competition-card" key={comp.id}>
           {isEditing && selectedCompetition?.id === comp.id ? (
@@ -165,5 +167,6 @@ export const CompetitionsDisplay = (props) => {
         </div>
       ))}
     </div>
+  </div>
   );
 };

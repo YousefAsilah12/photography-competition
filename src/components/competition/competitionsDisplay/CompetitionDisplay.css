@@ -1,13 +1,22 @@
 .competitions-display {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  display: grid !important;;
+  grid-template-columns: repeat(4,1fr);
+  grid-template-rows: repeat(auto,1fr);
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   width: 100%;
 }
-
+.competitionPageLayout{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  margin: auto;
+  align-items: center;
+  width: 100%
+  
+}
 .competition-card {
   background-color:var(--secoundary-color);
   color: var(--dark-color);
@@ -19,9 +28,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 40rem;
-  gap: 1rem;
-  width: 50%;
+  gap: .1rem;
+  width: 100%;
 
 }
 
@@ -58,7 +66,8 @@
 }
 
 button {
-  background-color: var(--fancy-color);
+  background:none !important;
+  border: var(--dark-color) 1px solid !important;
   color: var(--dark-color) !important;
   font-weight: 600;
   border: none; 
@@ -68,10 +77,12 @@ button {
   font-size: 1rem;
   padding: .7rem 2rem;
 }
-
 button:hover {
-  opacity: .8;
+  color: var(--NavBar-color) !important;
+  background-color: var(--dark-color) !important;
 }
+
+
 .competition-card .submit-button {
   display: block;
   margin: 0 auto;
@@ -94,9 +105,15 @@ button:hover {
   justify-content: space-around;
 }
 .editButton{
-  background-color:var(--fancy-color) !important;;
+ border: none !important; 
 }
+
 .deleteButton{
-  background-color: var(--dark-color) !important;;
-  color: var(--secoundary-color) !important;
+ border: none !important; 
+
+}
+.addCopetitionButton{
+  background-color: var(--dark-color) !important;
+  color: var(--NavBar-color) !important;
+
 }

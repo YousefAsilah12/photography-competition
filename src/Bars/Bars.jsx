@@ -27,8 +27,6 @@ export function Bars() {
   return (
     <div>
       <div
-        className="background"
-        style={{ backgroundImage: `url(${siteData.logo})`, color: "var(--scoundary-color)" }}
       >
         <div className="navbar" style={{ zIndex: "1" }}>
           <NavBar toggle={handleToggle} />

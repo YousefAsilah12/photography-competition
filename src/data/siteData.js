@@ -5,24 +5,22 @@ export const siteData={
 }
 
 export const routesAdmin = [
-  { path: '/create-competition', label: 'new competition' },
+  { path: '/create-competition', label: 'New competition' },
   { path: '/competitions-list', label: 'Competitions' },
   { path: '/winner-posts', label: 'Photos to sell' },
   { path: '/user-profile', label: 'Profile' },
-  { path: '/login', label: 'Login' },
-  { path: '/register', label: 'Register' }
 ]
 
 export  const routerUser = [
   { path: '/competitions-list', label: 'Competitions' },
   { path: '/winner-posts', label: 'Gallery' },
   { path: '/user-profile', label: 'Profile' },
-  { path: '/login', label: 'Login' },
-  { path: '/register', label: 'Register' }
 ]
 
 export const notLoggedINUser = [
   { path: '/competitions-list', label: 'Competitions' },
+]
+export const sideFooter = [
   { path: '/login', label: 'Login' },
   { path: '/register', label: 'Register' }
 ]
