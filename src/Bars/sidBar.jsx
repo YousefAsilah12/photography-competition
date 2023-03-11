@@ -24,7 +24,7 @@ export const SideBar = () => {
 
 
   useEffect(() => {
-    debugger
+
     if (userData) {
       if (userData[0].rule === "admin") {
         setRoutes(routesAdmin)
@@ -39,27 +39,29 @@ export const SideBar = () => {
   return (
     <div className='side-bar-contaienr'>
       <div className='sideLayout'>
+        <div>
 
-        {user ?
-          <div onClick={() => { navigtate("/user-profile") }} className='user-info-sideBar' >
-            <Avatar src={user.avatar} size="50" round={true} />
-            {user.rule === "admin" && <h4 className='userRule'>{user.rule}</h4>}
-            <h4 >{user.userName}</h4>
-          </div> : null}
-        <nav className='sidebar-items'>
-          {Routes.map((route, index) => {
-            const selected = location.pathname === route.path ? 'selected' : '';
-            return (
-              <div key={index}>
-                <NavLink
-                  className={`nav-item ${selected}`}
-                  to={route.path}>
-                  {route.label}
-                </NavLink>
-              </div>
-            )
-          })}
-        </nav>
+          {user ?
+            <div onClick={() => { navigtate("/user-profile") }} className='user-info-sideBar' >
+              <Avatar src={user.avatar} size="50" round={true} />
+              {user.rule === "admin" && <h4 className='userRule'>{user.rule}</h4>}
+              <h4 >{user.userName}</h4>
+            </div> : null}
+          <nav className='sidebar-items'>
+            {Routes.map((route, index) => {
+              const selected = location.pathname === route.path ? 'selected' : '';
+              return (
+                <div key={index}>
+                  <NavLink
+                    className={`nav-item ${selected}`}
+                    to={route.path}>
+                    {route.label}
+                  </NavLink>
+                </div>
+              )
+            })}
+          </nav>
+        </div>
         <div>
           <nav className='sidebar-items'>
             {sideFooter.map((route, index) => {

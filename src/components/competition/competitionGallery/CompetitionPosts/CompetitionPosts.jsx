@@ -56,7 +56,7 @@ export function CompetitionPosts({ post, competition, id, voted, updateVoted, co
           </h2>
         </div>}
         <div>
-          <button className="vote-Button" disabled={voted || competition.active === false} title={voted ? "alreadyVoted" : competition.active === false ? "competition finished" : "vote"} onClick={voteHandle}>
+          <button className="vote-btn" disabled={voted || competition.active === false} title={voted ? "alreadyVoted" : competition.active === false ? "competition finished" : "vote"} onClick={voteHandle}>
             Vote
           </button>
         </div>

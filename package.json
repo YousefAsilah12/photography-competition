@@ -20,6 +20,10 @@
     "react-file-download": "^0.3.5",
     "react-icons": "^4.8.0",
     "react-image-file-resizer": "^0.4.8",
+    "react-masonry-css": "^1.0.16",
+    "react-photo-gallery": "^8.0.0",
+    "react-photoswipe": "^1.3.0",
+    "react-tooltip": "^5.9.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

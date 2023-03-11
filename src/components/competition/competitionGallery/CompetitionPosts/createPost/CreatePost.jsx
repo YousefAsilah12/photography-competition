@@ -22,6 +22,8 @@ export function CreatePost({ competitionId, userId, addedPost }) {
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState("");
   const [postMessage, setPostMessage] = useState("");
+  const [width, setWidth] = useState("");
+  const [height, setHeight] = useState("");
   const imageUrlRef = useRef('');
   const navigate = useNavigate();
   const { data: users, addDocument, isLoading, error, fetchData } = useFirestore();
@@ -32,7 +34,6 @@ export function CreatePost({ competitionId, userId, addedPost }) {
   }, [])
 
   async function handleImageAsFile() {
-
 
     setPostMessage('loading ....');
 
@@ -53,10 +54,27 @@ export function CreatePost({ competitionId, userId, addedPost }) {
     }
     return false
   }
+  async function getWidthHeight() {
+    setPostMessage('gettingWidthHeight....');
 
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const img = new Image();
+      img.onload = function () {
+
+        const width = this.naturalWidth;
+        const height = this.naturalHeight;
+        console.log("w", width, "h", height);
+        setWidth(width);
+        setHeight(height);
+      }
+      img.src = e.target.result;
+    }
+    reader.readAsDataURL(imageFile);
+  }
   async function submiteForm(event) {
     event.preventDefault();
-
+    console.log(imageFile);
     if (!user) {
       alert("to have to login first")
       return
@@ -73,6 +91,15 @@ export function CreatePost({ competitionId, userId, addedPost }) {
       setPostMessage("please enter image file")
       return
     }
+    await getWidthHeight()
+    if (!width) {
+      setPostMessage("width not set try again ")
+      return
+    }
+    if (!height) {
+      setPostMessage("height not set try again ")
+      return
+    }
     const addedImg = await handleImageAsFile()
     if (!addedImg) {
       setPostMessage("image cant be uploaded")
@@ -82,6 +109,7 @@ export function CreatePost({ competitionId, userId, addedPost }) {
       setPostMessage("image cant be uploaded")
       return
     }
+
     if (addedImg == true) {
       const postObj = {
         title,
@@ -90,6 +118,8 @@ export function CreatePost({ competitionId, userId, addedPost }) {
         userId: user[0].id,
         competitionId,
         votes: 0,
+        width: width,
+        height: height,
         comments: []
       }
       try {
@@ -120,11 +150,11 @@ export function CreatePost({ competitionId, userId, addedPost }) {
       <label htmlFor="description">description</label>
       <textarea type="text" id="description" name="description" onChange={(e) => setDescription(e.target.value)} />
     </div>
-    <div className="create-post-formGroup">
+    <div className="create-post-formGroup ">
       <label htmlFor="Image">Image</label>
       <input type="file" id="image" name="image" onChange={(e) => setImageFile(e.target.files[0])} />
     </div>
-    <button type="submit" >add post</button>
+    <button type="submit" className="btn-add-post" >add post</button>
 
     {postMessage ? <h2 style={{ color: "white" }}>{postMessage}</h2> : null}
   </form>

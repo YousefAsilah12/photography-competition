@@ -142,7 +142,7 @@ export const CreateCompetition = () => {
         <input type="file" placeholder='select' id="image-url" onChange={(e) => setImageFile(e.target.files[0])} />
       </div>
 
-      <button type="submit">Create Competition</button>
+      <button type="submit" className='btn-add-post'>Create Competition</button>
       {message.message ? <h1 style={{ color: 'white' }} >{message.message}</h1> : null}
     </form>
   );

@@ -20,7 +20,7 @@ export const NavBar = ({ toggle }) => {
   const navigate = useNavigate()
   useEffect(() => {
     if (localStorage.getItem("user")) {
-      debugger
+      
       const userLoggedIn = JSON.parse(localStorage.getItem("user"))
       getUserByEmail(userLoggedIn.email)
     }

@@ -10,9 +10,10 @@
   --secoundary-colorLowerOpacity:rgba(252,252,249,.6) ;
   --dark-color-lower-opacity:rgba(10, 5, 4,.6) ; */
   --dark-color: #262626;
-    --NavBar-color: #DDDDD9;
+    --NavBar-color: #F2F2F2;
     --sideBar-color: #262626;
     --font-description: 'Itim', cursive;
+    --dark-low-opacity-color:rgba(38,38,38,.7) 
   }
 
   html,

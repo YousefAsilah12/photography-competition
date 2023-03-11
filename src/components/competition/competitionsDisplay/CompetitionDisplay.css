@@ -97,6 +97,9 @@ button:hover {
   .competition-card {
     width: 100%;
   }
+.competitions-display {
+  grid-template-columns: repeat(1,1fr);
+}
 }
 
 .compBottombuttons{

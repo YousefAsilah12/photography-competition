@@ -14,6 +14,7 @@ import { siteData } from './data/siteData';
 import { Bars } from './Bars/Bars';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { useFirestore } from './services/competition';
+import ImageGallery from './components/test/test';
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const { getUserByEmail, userData } = useFirestore()
@@ -50,6 +51,7 @@ function App() {
       },
       { path: "/login", element: <Login onLogin={handleLogin} /> },
       { path: "/register", element: <Register /> },
+      { path: "/test", element: <ImageGallery /> },
     ]
   );
   return (

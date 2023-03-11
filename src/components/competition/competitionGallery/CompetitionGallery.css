@@ -1,4 +1,129 @@
-.add-post {
+.LayoutGallery {
+  width: 90% !important;
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  ;
+  justify-content: center;
+}
+
+
+.postPage {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.postCenter {
+  display: flex;
+  flex-direction: column;
+  ;
+  align-items: center;
+  justify-content: center;
+}
+
+.postCenter input[type=submit] {
+  color: var(--NavBar-color) !important;
+  border: var(--NavBar-color)  1px solid !important;
+
+}
+
+
+.imageGallery {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.photo-container {
+  position: relative;
+  /* add this property to set the positioning context */
+  display: flex;
+  flex-direction: column;
+  color: var(--NavBar-color) !important;
+  background-color: 0px 0px 13px var(--dark-color);
+
+}
+
+
+.photo-container .postLine {
+  position: absolute;
+  /* add this property to position the postLine absolutely */
+  bottom: 0;
+  /* position the postLine at the top of the photo-container */
+  left: 0;
+  /* align the postLine to the left */
+  width: 100%;
+  /* set the width to 100% to fill the container */
+  height: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  padding: .5rem;
+  transition: all 0.5s ease-in-out;
+}
+
+.photo-container:hover .postLine {
+  opacity: 1;
+  background-color: var(--dark-low-opacity-color) !important;
+}
+
+.photo-container:hover button,
+.postLine:hover button {
+  border: none !important;
+}
+
+.photo-container button {
+  height: 100%;
+  padding: .1rem;
+  color: var(--NavBar-color) !important;
+  border: none;
+}
+
+.photo-container button:hover {
+  background: none !important;
+  border: var(--NavBar-color) 1px solid !important;
+  border-radius: 10px !important;
+  padding: .1rem;
+}
+
+.vote-btn {
+  padding: .5rem;
+  position: relative;
+}
+
+.vote-btn:hover::before {
+  content: attr(title);
+  position: absolute;
+  top: -52px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--dark-color);
+  color: var(--NavBar-color);
+  padding: 2rem;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  padding: 1rem;
+  z-index: 22;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -5px;
+  /* negative margin to counteract padding/margin on the child elements */
+}
+
+/* .add-post {
   display: flex;
   ;
   flex-direction: column;
@@ -7,7 +132,6 @@
   gap: 1rem;
 }
 
-/* styles.css */
 .post-styling{
   background-color: var(--secoundary-colorLowerOpacity);
   border-radius: 12px;
@@ -110,29 +234,30 @@
 }
 
 
-.vote-Button{
-  position: relative;
-}
-.vote-Button:hover::before {
-  content: attr(title);
-  position: absolute;
-  top: -50px; /* adjust this value to position the tooltip */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color:var(--primary-color);
-  color: var(--background-color);
-  padding: 5px;
-  border-radius: 5px;
-  font-size: 14px;
-  white-space: nowrap;
-  padding: 1rem;
-}
-
 .competition-posts{
   display: flex;;
   flex-direction: column;;
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  padding: 1rem;
+} */
+
+.vote-Button {
+  position: relative;
+}
+
+.vote-Button:hover::before {
+  content: attr(title);
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
   padding: 1rem;
 }
