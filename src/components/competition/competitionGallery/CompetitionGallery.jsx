@@ -232,7 +232,7 @@ export function CompetitionGallery() {
     setAddPost(false)
   }
   return (
-    <div className='LayoutGallery'>
+    <div>
       <div>
         {competition ? <div >
           <CountDown onTestWinner={addedPostHandle} competitionId={id} finishDate={competition.finishDate} competition={competition} posts={filteredPosts} />
@@ -251,12 +251,90 @@ export function CompetitionGallery() {
             : null}
         </div>
       </div>
-      <div className='imageGallery'>
+      <div className='imageGallery' >
         {photos.length > 0 && (
-          <div className='LayoutGallery'>
+          <div style={{width:"100%"}}>
             <Gallery photos={photos} onClick={handleClick} renderImage={(props) => <Photo {...props} onClick={handleClick} />} />          </div>
         )}
       </div>
     </div>
   );
 }
+
+
+// import React, { useState } from 'react';
+// import Gallery from 'react-photo-gallery';
+// import { FiZoomIn, FiZoomOut } from 'react-icons/fi';
+// import { MdClose } from 'react-icons/md';
+// import { Modal, ModalGateway } from 'react-images';
+
+// const photos = [
+//   {
+//     src: 'https://picsum.photos/id/1018/1000/600/',
+//     width: 1000,
+//     height: 600
+//   },
+//   {
+//     src: 'https://picsum.photos/id/1015/1000/600/',
+//     width: 1000,
+//     height: 600
+//   },
+//   {
+//     src: 'https://picsum.photos/id/1019/1000/600/',
+//     width: 1000,
+//     height: 600
+//   },
+//   {
+//     src: 'https://picsum.photos/id/1020/1000/600/',
+//     width: 1000,
+//     height: 600
+//   }
+// ];
+
+// export const CompetitionGallery = () => {
+//   const [modalIsOpen, setModalIsOpen] = useState(false);
+//   const [currentImage, setCurrentImage] = useState(0);
+
+//   const openModal = (index) => {
+//     setCurrentImage(index);
+//     setModalIsOpen(true);
+//   };
+
+//   const closeModal = () => {
+//     setCurrentImage(0);
+//     setModalIsOpen(false);
+//   };
+
+//   const nextImage = () => {
+//     setCurrentImage(currentImage + 1);
+//   };
+
+//   const prevImage = () => {
+//     setCurrentImage(currentImage - 1);
+//   };
+
+//   return (
+//     <div >
+//       <Gallery photos={photos} onClick={(e, { index }) => openModal(index)} />
+//       <ModalGateway>
+//         {modalIsOpen && (
+//           <Modal onClose={closeModal}>
+//             <div className="modal">
+//               <button className="modal-close" onClick={closeModal}>
+//                 <MdClose />
+//               </button>
+//               <button className="modal-next" onClick={nextImage}>
+//                 <FiZoomIn />
+//               </button>
+//               <button className="modal-prev" onClick={prevImage}>
+//                 <FiZoomOut />
+//               </button>
+//               <img src={photos[currentImage].src} alt="" />
+//             </div>
+//           </Modal>
+//         )}
+//       </ModalGateway>
+//     </div>
+//   );
+// };
+
