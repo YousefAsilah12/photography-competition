@@ -76,6 +76,6 @@ export function ImageComponent(props) {
 
   return <>
     <img src={imageUrl} alt="Uploaded image" />
-    {canDownload ? <div style={{ display: 'block' }}> <button onClick={() => downloadFile(imageUrl, imageName)}>Download</button> </div> : null}
+    {canDownload ? <div style={{ display: 'block' }}> <button onClick={() => downloadFile(imageUrl, imageName)}>preview image</button> </div> : null}
   </>
 }

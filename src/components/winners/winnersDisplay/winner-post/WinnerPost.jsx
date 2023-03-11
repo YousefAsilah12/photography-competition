@@ -8,7 +8,7 @@ import "./Winner-post.css"
 import { useFirestore } from "../../../../services/competition";
 import { useNavigate } from "react-router";
 
-export function WinnerPost({ post, onDelete, onBuyReload}) {
+export function WinnerPost({ post, onDelete, onBuyReload }) {
   const { isLoading, error, deleteDocument, deleteUnique, getUserByEmail, userData: user, updateDocument } = useFirestore()
   console.log("post form oo", post);
   const [price, setPrice] = useState(null);
@@ -67,7 +67,7 @@ export function WinnerPost({ post, onDelete, onBuyReload}) {
         <div className="post-price"> <span>{post.votes * 20}</span> $</div>
         <div className="buttons-line">
           <button onClick={handleBuyNow} className="buy-btn">Buy Now</button>
-          {(user[0].rule === "admin") && <button onClick={handleDelete} className="delete-button-winner" >delete</button>}
+          {(user[0] && user[0].rule === "admin") && <button onClick={handleDelete} className="delete-button-winner" >delete</button>}
         </div>
       </div>
     </div>
