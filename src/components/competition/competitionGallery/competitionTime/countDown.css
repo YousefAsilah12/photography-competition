@@ -17,6 +17,15 @@
   gap: 2rem;
   color: var(--dark-color);
 }
+@media (max-width:500px) {
+  .time-container{
+    gap: .3rem;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+}
 /* .time-row{
   display: flex;;
   justify-content: center;

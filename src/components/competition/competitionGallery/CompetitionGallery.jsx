@@ -141,8 +141,8 @@ export function CompetitionGallery() {
     }
   }, [posts]);
   useEffect(() => {
-    debugger
-    debugger
+
+
     console.log("logged in data ", loggedInData);
     if (loggedInData) {
       const res = loggedInData[0].votedFor.findIndex(obj => obj.competitionId === id);
@@ -151,7 +151,7 @@ export function CompetitionGallery() {
     }
   }, [loggedInData])
   useEffect(() => {
-    debugger
+
     if (filteredPosts.length > 0) {
       Promise.all(
         filteredPosts.map(async (post) => {
@@ -189,7 +189,7 @@ export function CompetitionGallery() {
     }
   }
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="loading-center"> <h1>Loading...</h1></div>
   }
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -205,14 +205,14 @@ export function CompetitionGallery() {
         <div className='postLine'>
           {/* <div className="photo-title">{photo.title}</div> */}
           <h3>votes: {photo.votes}</h3>
-          {(loggedInData[0]) && <button title={(loggedInData[0] && index > -1 && loggedInData[0].votedFor[index].voted) ? 'already voted' : "vote"} disabled={index > -1 ? loggedInData[0].votedFor[index].voted : false} className='vote-btn' onClick={() => handleVoted(photo)}>Vote</button>
+          {(loggedInData[0]) && <button title={competition.active === false ? "competition completed" : (loggedInData[0] && index > -1 && loggedInData[0].votedFor[index].voted) ? 'already voted' : "vote"} disabled={competition.active === false ? true : index > -1 ? loggedInData[0].votedFor[index].voted : false} className='vote-btn' onClick={() => handleVoted(photo)}>Vote</button>
           }
         </div>
       </div>
     );
   }
   async function handleVoted(post) {
-    debugger
+
     if (index === -1) {
       const newObj = { competitionId: id, times: 1, voted: true }
       try {
@@ -232,10 +232,10 @@ export function CompetitionGallery() {
     setAddPost(false)
   }
   return (
-    <div>
+    <div className='countDownSmallScreen' style={{ width: "100%" }}>
       <div>
         {competition ? <div >
-          <CountDown onTestWinner={addedPostHandle} competitionId={id} finishDate={competition.finishDate} competition={competition} posts={filteredPosts} />
+          <CountDown user={loggedInData[0]} onTestWinner={addedPostHandle} competitionId={id} finishDate={competition.finishDate} competition={competition} posts={filteredPosts} />
         </div> : null}
       </div>
       <div>
@@ -253,7 +253,7 @@ export function CompetitionGallery() {
       </div>
       <div className='imageGallery' >
         {photos.length > 0 && (
-          <div style={{width:"100%"}}>
+          <div style={{ width: "100%", padding: "5%" }}>
             <Gallery photos={photos} onClick={handleClick} renderImage={(props) => <Photo {...props} onClick={handleClick} />} />          </div>
         )}
       </div>

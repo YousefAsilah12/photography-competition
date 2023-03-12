@@ -75,7 +75,7 @@ export function UserProfile() {
     }
   };
 
-  if (isLoading) return <h1>loading</h1>
+  if (isLoading) return <div className="loading-center"> <h1>Loading...</h1></div>
   function checkIncludes(property, type) {
     let chosen;
     if (type === "userName") chosen = "userName";

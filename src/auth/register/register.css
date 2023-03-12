@@ -11,3 +11,9 @@
   background-color: var(--secondary-color);
   gap: 2rem;
 }
+.loading{
+  padding: 1rem;
+  border-radius:10px;
+  background-color: var(--dark-color);
+  color: var(--NavBar-color);
+}

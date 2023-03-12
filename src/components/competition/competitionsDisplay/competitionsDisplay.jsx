@@ -35,7 +35,7 @@ export const CompetitionsDisplay = (props) => {
     setSelectedCompetition(null);
     // TODO: save changes to the database
     try {
-      await updateDocument(selectedCompetition.id, selectedCompetition);
+      await updateDocument(selectedCompetition.id, selectedCompetition, "competition");
       console.log("updated");
     } catch (e) {
       console.log(e.message);
@@ -51,7 +51,11 @@ export const CompetitionsDisplay = (props) => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="loading-center">
+        <h1>Loading...</h1>
+
+    </div>
+
   }
 
   if (error) {
@@ -81,9 +85,9 @@ export const CompetitionsDisplay = (props) => {
 
   }
   return (<div className="competitionPageLayout">
-  <div>
-    {(userData[0] && userData[0].rule === "admin") && <button onClick={() => { navigate("/create-competition") }} className="addCopetitionButton">add competition</button>}
-  </div>
+    <div>
+      {(userData[0] && userData[0].rule === "admin") && <button onClick={() => { navigate("/create-competition") }} className="addCopetitionButton">add competition</button>}
+    </div>
     <div className="competitions-display">
       {competition.map((comp) => (
         <div className="competition-card" key={comp.id}>
@@ -111,7 +115,7 @@ export const CompetitionsDisplay = (props) => {
               <div className="dates">
                 <input
                   type="date"
-                  value={Date(selectedCompetition.startDate).toString()}
+                  value={selectedCompetition.startDate ? new Date(selectedCompetition.startDate).toISOString().substr(0, 10) : ''}
                   onChange={(e) =>
                     setSelectedCompetition({
                       ...selectedCompetition,
@@ -121,7 +125,7 @@ export const CompetitionsDisplay = (props) => {
                 />
                 <input
                   type="date"
-                  value={Date(selectedCompetition.finishDate).toString()}
+                  value={selectedCompetition.startDate ? new Date(selectedCompetition.finishDate).toISOString().substr(0, 10) : ''}
                   onChange={(e) =>
                     setSelectedCompetition({
                       ...selectedCompetition,
@@ -130,7 +134,7 @@ export const CompetitionsDisplay = (props) => {
                   }
                 />
               </div>
-              <input placeholder="image url" value={selectedCompetition.image} onChange={(e) =>
+              <input placeholder="image url" value={selectedCompetition.imageUrl} onChange={(e) =>
                 setSelectedCompetition({
                   ...selectedCompetition,
                   image: e.target.value,

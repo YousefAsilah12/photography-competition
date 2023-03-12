@@ -7,13 +7,13 @@ export const siteData={
 export const routesAdmin = [
   { path: '/create-competition', label: 'New competition' },
   { path: '/competitions-list', label: 'Competitions' },
-  { path: '/winner-posts', label: 'Photos to sell' },
+  { path: '/winner-posts', label: 'Photos for sale' },
   { path: '/user-profile', label: 'Profile' },
 ]
 
 export  const routerUser = [
   { path: '/competitions-list', label: 'Competitions' },
-  { path: '/winner-posts', label: 'Gallery' },
+  { path: '/winner-posts', label: 'Photos for sale' },
   { path: '/user-profile', label: 'Profile' },
 ]
 

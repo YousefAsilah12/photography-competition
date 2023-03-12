@@ -1,35 +1,39 @@
 .competitions-display {
-  display: grid !important;;
-  grid-template-columns: repeat(4,1fr);
-  grid-template-rows: repeat(auto,1fr);
+  display: grid !important;
+  ;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(auto, 1fr);
   justify-content: center;
   align-items: center;
   gap: 1rem;
   width: 100%;
 }
-.competitionPageLayout{
+
+.competitionPageLayout {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-  margin: auto;
+  /* margin: auto; */
   align-items: center;
-  width: 100%
-  
+  width: 90%
 }
+
 .competition-card {
-  background-color:var(--secoundary-color);
+  background-color: var(--secoundary-color);
   color: var(--dark-color);
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   padding: 1rem;
-  display: flex;;
+  display: flex;
+  ;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: .1rem;
   width: 100%;
+  height: 100%;
 
 }
 
@@ -38,7 +42,7 @@
   height: 100%;
   margin: 0 auto;
   width: 100%;
-  
+
 }
 
 .competition-card h2 {
@@ -58,25 +62,26 @@
   justify-content: space-around;
   display: flex;
   flex-direction: column;
-  padding:0;
+  padding: 0;
 }
 
 .dates p {
-  font-size:.8rem;
+  font-size: .8rem;
 }
 
 button {
-  background:none !important;
+  background: none !important;
   border: var(--dark-color) 1px solid !important;
   color: var(--dark-color) !important;
   font-weight: 600;
-  border: none; 
+  border: none;
   border-radius: 5px;
   color: white;
   cursor: pointer;
   font-size: 1rem;
   padding: .7rem 2rem;
 }
+
 button:hover {
   color: var(--NavBar-color) !important;
   background-color: var(--dark-color) !important;
@@ -97,26 +102,47 @@ button:hover {
   .competition-card {
     width: 100%;
   }
-.competitions-display {
-  grid-template-columns: repeat(1,1fr);
-}
+  .competitions-display {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.compBottombuttons{
+@media (max-width: 500px) {
+  .competition-card {
+    width: 100%;
+  }
+  .competitions-display {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.compBottombuttons {
   width: 100%;
-  display: flex;;
+  display: flex;
+  ;
   justify-content: space-around;
 }
-.editButton{
- border: none !important; 
+
+.editButton {
+  border: none !important;
 }
 
-.deleteButton{
- border: none !important; 
+.deleteButton {
+  border: none !important;
 
 }
-.addCopetitionButton{
+
+.addCopetitionButton {
   background-color: var(--dark-color) !important;
   color: var(--NavBar-color) !important;
 
+}
+
+.loading-center{
+  width: 100%;
+  height: 100%;
+  display: flex;;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
 }

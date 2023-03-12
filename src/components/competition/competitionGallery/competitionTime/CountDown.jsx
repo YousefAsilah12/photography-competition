@@ -3,7 +3,7 @@ import Countdown from 'react-countdown';
 import "./countDown.css"
 import { useFirestore } from "../../../../services/competition";
 import { updateDoc } from "firebase/firestore";
-export function CountDown({ onTestWinner, finishDate, competition, competitionId, posts }) {
+export function CountDown({ onTestWinner, finishDate, competition, competitionId, posts, user }) {
 
   const { isLoading, error, data: winners, fetchData, addDocument, updateDocument } = useFirestore()
 
@@ -21,9 +21,9 @@ export function CountDown({ onTestWinner, finishDate, competition, competitionId
     } else {
       // Render the countdown
       return (
-        <div className="time-container">
-          <button disabled={!competition.active || posts.length === 0} title={!competition.active ? "competition finished" : posts.length === 0 ? "no posts" : "checkwinner"} className="vote-btn" onClick={checkForWinner}>testWinner</button>
-
+        <div className="time-container countDownSmallScreen">
+          {user&&user.rule === "admin" ? <button disabled={!competition.active || posts.length === 0} title={!competition.active ? "competition finished" : posts.length === 0 ? "no posts" : "checkwinner"} className="vote-btn" onClick={checkForWinner}>testWinner</button>
+            : null}
           <div className="time-row"><span>{days}</span> : days</div>
           <div><span>{hours}</span> : hours</div>
           <div><span>{minutes}</span> : minutes</div>
@@ -43,7 +43,7 @@ export function CountDown({ onTestWinner, finishDate, competition, competitionId
   }
 
   async function checkForWinner() {
-    
+
     let max = posts[0]
     posts.forEach((item, index) => {
       if (item.votes > max.votes) {
@@ -53,6 +53,9 @@ export function CountDown({ onTestWinner, finishDate, competition, competitionId
     const isIncludes = ifIncludes(max)
     if (isIncludes === true) {
       alert("already exist")
+      competition.active = false
+      await updateDocument(competitionId, competition, "competition")
+      onTestWinner()
       return
     }
 

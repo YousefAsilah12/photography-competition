@@ -41,7 +41,7 @@ export function WinnersDisplay() {
         ))}
       </div>
     ) : (
-      <div>Loading...</div>
+      <div className="loading-center"><h3>Loading...</h3></div>
     )
   );
 }

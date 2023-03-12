@@ -50,7 +50,7 @@ export function CompetitionPosts({ post, competition, id, voted, updateVoted, co
           <img src={user.avatar} alt="" />
           <h1>{user.userName}</h1>
         </div>
-        {isLoading ? <h4>loading..</h4> : <div>
+        {isLoading ? <div className="loading-center"> <h4>loading..</h4> </div>: <div>
           <h2 className="details">
             <small>votes:</small>  {post.votes}
           </h2>

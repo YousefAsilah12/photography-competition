@@ -18,7 +18,7 @@ export function Register() {
   }, [])
 
 
-  if (isLoading) return <h1>Loading...</h1>
+  if (isLoading) return <div className="loading-center"> <h1>Loading...</h1></div>
   if (error) return <h1>{error}</h1>
 
   function checkUserIncluded(newUser) {
@@ -37,7 +37,7 @@ export function Register() {
   }
   async function registerHandle(e) {
     e.preventDefault()
-    setMessage("")
+    setMessage("loading....")
     if (userName === "" || email === "" || password === "" || repassword === "") {
       setMessage("All fields are required")
       return
@@ -46,6 +46,7 @@ export function Register() {
       setMessage("passwords not match !")
       return
     }
+
     const registerObject = {
       avatar: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
       buyedImages: [],
@@ -59,9 +60,7 @@ export function Register() {
     if (checkUserIncluded(registerObject)) return
     try {
       await addDocument(registerObject, "users")
-      if (addedUser) {
-        afterLogin()
-      }
+      navigate("/login")
     } catch (e) {
       setMessage(e.message)
     }
@@ -75,44 +74,47 @@ export function Register() {
         setMessage("")
         setrePassword("")
         setUserName("")
-        window.close();
       }
     }
 
 
   }
-  return  <div className="login-page">
-  <div className="backdrop-login"></div>
-  <div>
-    <form className="form-register" onSubmit={registerHandle}>
-      <div className="form-container">
-        <div className="login-form-group">
-          <h1 >Register Form</h1>
+  return <div className="login-page">
+    <div className="backdrop-login"></div>
+    <div>
+      <form className="form-register" onSubmit={registerHandle}>
+        <div className="form-container">
+          <div className="login-form-group">
+            <h1 >Register Form</h1>
 
+          </div>
+          <div>
+            <div className="login-form-group">
+              <label htmlFor="userName">User Name</label>
+              <input onChange={(e) => { setUserName(e.target.value) }} type="text" maxLength="16" minLength="3" required name="userName" id="userName" />
+            </div>
+            <div className="login-form-group">
+              <label htmlFor="email">Email</label>
+              <input onChange={(e) => { setEmail(e.target.value) }} type="email" name="email" required id="email" />
+            </div>
+            <div className="login-form-group">
+              <label htmlFor="password">Password</label>
+              <input onChange={(e) => { setPassword(e.target.value) }} minLength="6" max="16" type="password" name="password" required id="password" />
+            </div>
+            <div className="login-form-group">
+              <label htmlFor="re-password">Retype Password</label>
+              <input onChange={(e) => { setrePassword(e.target.value) }} type="password" minLength="6" max="16" name="re-password" required id="re-password" />
+            </div>
+            <div className="login-form-group">
+              {<input type="submit" value="Register" className="login-submite-button" />}
+              {message ? <p className="loading">{message}</p> : ""}
+            </div>
+            <div>
+              <a onClick={() => { navigate("../login") }} >get back to login ? <span className="linkRef">Login</span></a>
+            </div>
+          </div>
         </div>
-        <div>
-        <div className="login-form-group">
-          <label htmlFor="userName">User Name</label>
-          <input onChange={(e) => { setUserName(e.target.value) }} type="text" maxLength="16" minLength="3" required name="userName" id="userName" />
-        </div>
-        <div className="login-form-group">
-          <label htmlFor="email">Email</label>
-          <input onChange={(e) => { setEmail(e.target.value) }} type="email" name="email" required id="email" />
-        </div>
-        <div className="login-form-group">
-          <label htmlFor="password">Password</label>
-          <input onChange={(e) => { setPassword(e.target.value) }} type="password" name="password" required id="password" />
-        </div>
-        <div className="login-form-group">
-          <label htmlFor="re-password">Retype Password</label>
-          <input onChange={(e) => { setrePassword(e.target.value) }} type="password" name="re-password" required id="re-password" />
-        </div>
-        <div className="login-form-group">
-          <input type="submit" value="Register" className="login-submite-button" />
-        </div>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
 }

@@ -62,9 +62,8 @@ export function ImageComponent(props) {
   }
 
 
-  if (isLoading) {
-    return <p>Loading image...</p>;
-  }
+  if (isLoading) return <div className="loading-center"> <h1>Loading...</h1></div>
+
 
   if (error) {
     return <p>Error loading image: {error.message}</p>;

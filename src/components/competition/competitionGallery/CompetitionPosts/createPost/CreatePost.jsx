@@ -44,7 +44,7 @@ export function CreatePost({ competitionId, userId, addedPost }) {
     const imageRef = ref(storage, collectionName + imageLocattion)
     try {
       setPostMessage('compressing the image.....')
-      const compressedImage = await compressImage(imageFile, 0.1);
+      // const compressedImage = await compressImage(imageFile, 0.1);
       setPostMessage('uploading........')
       const response = await uploadBytes(imageRef, imageFile)
       imageUrlRef.current = response.metadata.name;
@@ -93,11 +93,9 @@ export function CreatePost({ competitionId, userId, addedPost }) {
     }
     await getWidthHeight()
     if (!width) {
-      setPostMessage("width not set try again ")
       return
     }
     if (!height) {
-      setPostMessage("height not set try again ")
       return
     }
     const addedImg = await handleImageAsFile()

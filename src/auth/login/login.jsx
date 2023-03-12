@@ -46,7 +46,7 @@ export const Login = ({ onLogin }) => {
   }
   function loginHandle(e) {
     e.preventDefault()
-    setMessage("")
+    setMessage("loading....")
     if (!password || !email) {
       setMessage("All fields are required")
       return
@@ -81,6 +81,10 @@ export const Login = ({ onLogin }) => {
             </div>
             <div className="login-form-group">
               <input type="submit" value="Login" className="login-submite-button" />
+              {message ? <p className="loading">{message}</p> : ""}
+            </div>
+            <div>
+              <a onClick={() => navigate("../register")}>dont have account ? <span className="linkRef"> register</span></a>
             </div>
           </div>
         </div>

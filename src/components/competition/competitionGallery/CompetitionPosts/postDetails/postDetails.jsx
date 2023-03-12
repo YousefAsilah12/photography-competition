@@ -122,6 +122,7 @@ export const PostDetails = () => {
           </div>
         ) : (
           <div className="post-info">
+              <h2>post by: {loggedInUser[0].userName}</h2>
             <div className="post-info-line">
               <h1>{post.title}</h1>
               <p>{post.votes} votes</p>
@@ -175,7 +176,7 @@ export const PostDetails = () => {
         )}
         <form className="form-addComment" onSubmit={handleCommentSubmit}>
           {isLoading ? (
-            <h5>loading...</h5>
+            <div className="loading-center"><h5>loading...</h5></div>
           ) : (
             <label>
               Add a comment:

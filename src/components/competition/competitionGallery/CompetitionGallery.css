@@ -50,8 +50,9 @@
   background-color: 0px 0px 13px var(--dark-color);
 
 }
-
-
+.photo-container:hover {
+  cursor: pointer;
+}
 .photo-container .postLine {
   position: absolute;
   /* add this property to position the postLine absolutely */
@@ -74,6 +75,7 @@
 .photo-container:hover .postLine {
   opacity: 1;
   background-color: var(--dark-low-opacity-color) !important;
+
 }
 
 .photo-container:hover button,
@@ -121,6 +123,14 @@
   flex-wrap: wrap;
   margin: -5px;
   /* negative margin to counteract padding/margin on the child elements */
+}
+@media (max-width:500px) {
+  .countDownSmallScreen{
+    display: flex;;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 /* .add-post {

@@ -22,20 +22,23 @@
   line-height: 2rem;
   letter-spacing: 1px;
   font-size: 1rem;
-
+  text-decoration: none;
 }
 
 .nav-item:hover {
   background-color: var(--dark-color);
-  color: var(--secoundary-color);
-  padding: 1.5rem;
+  color: var(--NavBar-color) !important;
+  text-decoration: underline !important;;
   border-radius: 15px;
   font-size: 1rem;
 }
 
 .selected {
-  color: var(--NavBar-color);
-  border-radius: 15px;
+  color: var(--dark-color);
+  background-color: var(--NavBar-color);
+  text-decoration: underline !important;
+  padding: .3rem;
+  border-radius: 10px;
 }
 
 .user-info-sideBar {

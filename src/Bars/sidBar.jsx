@@ -5,7 +5,7 @@ import { useFirestore } from '../services/competition'
 import "./sideBar.css"
 import Avatar from "react-avatar"
 import { useNavigate } from 'react-router';
-export const SideBar = () => {
+export const SideBar = ({ toggle }) => {
   const [Routes, setRoutes] = useState(routerUser)
   const { isLoading, error, userData, getUserByEmail } = useFirestore()
   const [user, setUser] = useState("")
@@ -53,6 +53,7 @@ export const SideBar = () => {
               return (
                 <div key={index}>
                   <NavLink
+                    onClick={toggle}
                     className={`nav-item ${selected}`}
                     to={route.path}>
                     {route.label}
@@ -67,7 +68,9 @@ export const SideBar = () => {
             {sideFooter.map((route, index) => {
               return (
                 <div key={index}>
-                  <NavLink className={"nav-item"}
+                  <NavLink
+                    onClick={toggle}
+                    className={"nav-item"}
                     to={route.path}>
                     {route.label}
                   </NavLink>

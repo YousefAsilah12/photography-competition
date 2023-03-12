@@ -6,7 +6,7 @@ import { storage } from '../../../firebase/firebaseConfig';
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid"
 import { compressImage } from '../../../services/imgResize';
-import { isDateUpToToday, isFinishAfterStart}from "../../../services/date"
+import { isDateUpToToday, isFinishAfterStart } from "../../../services/date"
 export const CreateCompetition = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -19,7 +19,7 @@ export const CreateCompetition = () => {
   const { addDocument, isLoading, error } = useFirestore('competition');
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className='loading-center'><h1>Loading...</h1></div>;
   }
 
   if (error) {
@@ -36,9 +36,10 @@ export const CreateCompetition = () => {
     const imageRef = ref(storage, collectionName + imageLocattion)
     try {
       setMessage({ error: false, message: 'compressing ....' });
-      const compressedImage = await compressImage(imageFile, 0.1);
+      // const compressedImage = await compressImage(imageFile, 0.1);
       setMessage({ error: false, message: 'uploading.....' });
-      const response = await uploadBytes(imageRef, compressedImage)
+      // const response = await uploadBytes(imageRef, compressImage)
+      const response = await uploadBytes(imageRef, imageFile)
       console.log("response", response);
       imageUrlRef.current = response.metadata.name;
       return true;
@@ -75,7 +76,7 @@ export const CreateCompetition = () => {
       setMessage({ error: true, message: 'finish date cant be before start date !' });
       return;
     }
-    
+
     const addedImg = await handleImageAsFile()
     if (!addedImg) {
       setMessage({ error: true, message: 'Image could not be uploaded' });

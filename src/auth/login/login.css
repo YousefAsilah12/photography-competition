@@ -1,10 +1,12 @@
-.login-page{
+.login-page {
   width: 100vw;
   height: 100vh;
-  display: grid !important;;
+  display: grid !important;
+  ;
   grid-template-columns: 3fr 2fr;
   background-color: rgba(0, 0, 0, .6);
 }
+
 .form-login {
   width: 100%;
   height: 100%;
@@ -14,7 +16,7 @@
   flex-direction: column;
   color: var(--dark-color);
   gap: 3rem;
-  background-color: var(--secondary-color); 
+  background-color: var(--dark-color);
 }
 
 .form-login input {
@@ -22,7 +24,8 @@
   width: 100%;
 
 }
-.backdrop-login{
+
+.backdrop-login {
   width: 100%;
   height: 100%;
   background: url("https://firebasestorage.googleapis.com/v0/b/photography-competition-9434e.appspot.com/o/competitionImages%2FYous3f2_main_website_cover_background_with_this_colors_733F65BF_836e6a53-add2-4ab0-99b8-c5a1e9a0788f.png?alt=media&token=4764cb13-3b7b-4ed9-9949-e193aff8eab9");
@@ -30,14 +33,15 @@
   background-position: center center;
   background-size: cover;
 }
-.form-container
-{
-  display: flex;;
+
+.form-container {
+  display: flex;
+  ;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   gap: 3rem;
-  background-color: var(--secoundary-colorLowerOpacity);
+  background-color: var(--NavBar-color);
   position: relative;
   z-index: 11;
   padding: 4rem;
@@ -45,23 +49,27 @@
   height: 80%;
   width: 80%;
 }
-.form-container h1
-{
-  color: var(--primary-color);
+
+.form-container h1 {
+  color: var(--dark-color);
 }
-.form-container input{
+
+.form-container input {
   width: 100%;
   padding: 1rem;
   border-radius: 10px;
-  border: none;
-
+  border: 1px var(--dark-color) solid;
+  
 }
-.form-container label{
+
+.form-container label {
   align-self: flex-start;
 
 }
-.form-container div{
-  display: flex;;
+
+.form-container div {
+  display: flex;
+  ;
   flex-direction: column;
   gap: 1rem;
   justify-content: center;
@@ -70,10 +78,25 @@
   width: 100%;
 }
 
-.form-container input[type="submit"]{
-background-color: var(--dark-color);
-color: var(--primary-color);
-font-size: large;
-font-weight: bold;
+.form-container input[type="submit"],
+.loading {
+  background: none;
+  border: var(--dark-color) 1px solid !important;
+  color: var(--dark-color);
+  font-size: large;
+  font-weight: bold;
 
+}
+
+.form-container input[type="submit"]:hover {
+  background-color: var(--dark-color);
+
+  color: var(--NavBar-color);
+  cursor: pointer;
+  ;
+}
+.linkRef{
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1.3rem;
 }

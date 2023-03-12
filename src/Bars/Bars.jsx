@@ -8,13 +8,15 @@ export function Bars() {
   const [toggled, setToggled] = useState(false);
 
   // Add a useEffect hook to detect screen width and toggle the sidebar accordingly
+
   useEffect(() => {
     function handleResize() {
-      if (window.innerWidth < 767) {
+      if (window.innerWidth < 756) {
         setToggled(true);
-      } else {
-        setToggled(false);
-      }
+      } 
+      // else {
+      //   setToggled(false);
+      // }
     }
     window.addEventListener("resize", handleResize);
     handleResize(); // Set the initial state based on the screen width
@@ -33,7 +35,7 @@ export function Bars() {
         </div>
         <div className={toggled ? "toggledSideBar-outlet" : "page-side-outlet"}>
           <div style={{ zIndex: "3" }} className={`sideBarParent ${toggled ? "toggledSideBar" : "sideBar"} `}>
-            <SideBar />
+            <SideBar toggle={handleToggle} />
           </div>
           <div className="Outlet" style={{ paddingTop: "1vh", zIndex: "0" }}>
             <Outlet />
