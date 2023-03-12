@@ -17,3 +17,14 @@
   background-color: var(--dark-color);
   color: var(--NavBar-color);
 }
+
+@media (max-width:767px) {
+  .backdrop-login {
+    display: none;
+    width: 0px;
+  }
+  .form-register {
+    width: 100vw;
+    height: 100%;
+  }
+}

@@ -34,6 +34,17 @@
   background-size: cover;
 }
 
+@media (max-width:767px) {
+  .backdrop-login {
+    display: none;
+    width: 0px;
+  }
+  .form-login {
+    width: 100vw;
+    height: 100%;
+  }
+}
+
 .form-container {
   display: flex;
   ;
@@ -59,7 +70,7 @@
   padding: 1rem;
   border-radius: 10px;
   border: 1px var(--dark-color) solid;
-  
+
 }
 
 .form-container label {
@@ -95,7 +106,8 @@
   cursor: pointer;
   ;
 }
-.linkRef{
+
+.linkRef {
   text-decoration: underline;
   cursor: pointer;
   font-size: 1.3rem;
