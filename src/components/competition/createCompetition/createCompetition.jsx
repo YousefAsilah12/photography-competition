@@ -36,10 +36,10 @@ export const CreateCompetition = () => {
     const imageRef = ref(storage, collectionName + imageLocattion)
     try {
       setMessage({ error: false, message: 'compressing ....' });
-      // const compressedImage = await compressImage(imageFile, 0.1);
       setMessage({ error: false, message: 'uploading.....' });
-      // const response = await uploadBytes(imageRef, compressImage)
-      const response = await uploadBytes(imageRef, imageFile)
+      const compressedImage = await compressImage(imageFile, 0.1);
+      const response = await uploadBytes(compressedImage, compressImage)
+      // const response = await uploadBytes(imageRef, imageFile)
       console.log("response", response);
       imageUrlRef.current = response.metadata.name;
       return true;

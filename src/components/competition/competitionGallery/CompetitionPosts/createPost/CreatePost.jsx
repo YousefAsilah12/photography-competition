@@ -46,7 +46,9 @@ export function CreatePost({ competitionId, userId, addedPost }) {
       setPostMessage('compressing the image.....')
       // const compressedImage = await compressImage(imageFile, 0.1);
       setPostMessage('uploading........')
-      const response = await uploadBytes(imageRef, imageFile)
+      const compressedImage = await compressImage(imageFile, 0.1);
+      const response = await uploadBytes(imageRef, compressedImage)
+      // const response = await uploadBytes(imageRef, imageFile)
       imageUrlRef.current = response.metadata.name;
       return true
     } catch (error) {
