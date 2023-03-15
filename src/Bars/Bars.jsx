@@ -30,7 +30,7 @@ export function Bars() {
     <div>
       <div
       >
-        <div className="navbar" style={{ zIndex: "1" }}>
+        <div className="navbar" style={{ zIndex: "100" }}>
           <NavBar toggle={handleToggle} />
         </div>
         <div className={toggled ? "toggledSideBar-outlet" : "page-side-outlet"}>
