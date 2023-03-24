@@ -30,7 +30,7 @@
 <li>comment on post and Vote</li>
 </ul><h2>Screenshots</h2>
 <hr><p><img src="https://i.ibb.co/Lt8jxxd/Screenshot-2023-03-23-143646.png" alt=""></p><p><img src="https://i.ibb.co/jww8qzH/Screenshot-2023-03-23-143706.png" alt=""></p><p><img src="https://i.ibb.co/crf9DyG/Screenshot-2023-03-23-143725.png" alt=""></p><p><img src="https://i.ibb.co/gtsdwf0/Screenshot-2023-03-23-143739.png" alt=""></p><h2>Usage</h2>
-<hr><p>netlify Link:https://photography-competition.netlify.app/</p><h2>Project Status</h2>
+<hr><p>Demo:https://photography-competition.netlify.app/</p><h2>Project Status</h2>
 <hr><p>Completed</p><h2>Features that can be added</h2>
 <hr><ul>
 <li>add budget to user can buy images</li>
